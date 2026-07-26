@@ -2,7 +2,9 @@
 
 // 共享 ffmpeg.wasm 封装：全视频/音频工具复用同一个 FFmpeg 实例（懒加载一次）。
 // 使用单线程核心（@ffmpeg/core），无需 SharedArrayBuffer / COOP-COEP，所有环境均可加载。
-// 核心文件已本地化到 public/ffmpeg/。
+// 核心文件托管于 public/ffmpeg/；但 ffmpeg-core.wasm 单文件 32MB 超过 Cloudflare Pages
+// 的 25MB 单文件上限，故 wasm 改由 jsDelivr CDN 托管（带 CORS *，版本与 @ffmpeg/core 对齐）。
+// worker/const/errors/esm 核心仍原样放 public/ffmpeg/，不经过 webpack。
 
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile } from '@ffmpeg/util';
@@ -37,7 +39,8 @@ export async function getFFmpeg(onLog?: (msg: string) => void): Promise<FFmpeg> 
       //（file:///D:/...），相对路径会被拼到磁盘上导致 Worker 构造失败。
       classWorkerURL: `${window.location.origin}${CORE_BASE}/worker.js`,
       coreURL: `${CORE_BASE}/ffmpeg-core.esm.js`,
-      wasmURL: `${CORE_BASE}/ffmpeg-core.wasm`,
+      // 32MB wasm 超出 Cloudflare Pages 25MB 单文件限制 → 走 jsDelivr（CORS *，版本对齐 @ffmpeg/core@0.12.10）
+      wasmURL: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm/ffmpeg-core.wasm',
     });
     ffmpeg = instance;
     return instance;
