@@ -1,0 +1,45 @@
+name: Deploy to Cloudflare Pages (Overseas)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: overseas-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (static export → out/)
+        # 海外构建：默认不接广告（占位）。拿到 AdSense 账号后，在仓库 Secrets 填
+        # AD_NETWORK_OVERSEAS / ADSENSE_ID / ADSENSE_SLOT_* 即可自动开启广告。
+        env:
+          NEXT_PUBLIC_AD_NETWORK: ${{ secrets.AD_NETWORK_OVERSEAS || 'none' }}
+          NEXT_PUBLIC_ADSENSE_ID: ${{ secrets.ADSENSE_ID }}
+          NEXT_PUBLIC_ADSENSE_SLOT_HEADER: ${{ secrets.ADSENSE_SLOT_HEADER }}
+          NEXT_PUBLIC_ADSENSE_SLOT_INFEED: ${{ secrets.ADSENSE_SLOT_INFEED }}
+          NEXT_PUBLIC_ADSENSE_SLOT_FOOTER: ${{ secrets.ADSENSE_SLOT_FOOTER }}
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.SITE_URL_OVERSEAS || 'https://toolhub.dev' }}
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: toolhub
+          directory: out
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
