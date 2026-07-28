@@ -10,5 +10,5 @@ export const config: ToolConfig = {
   icon: 'BarChart3',
   isClientOnly: true,
   features: ['Top-N ranking', 'Case-insensitive', 'Local'],
-  relatedTools: ['text-sorter', 'find-replace', 'whitespace-cleaner'],
+  relatedTools: ['text-sorter', 'find-replace'],
 };

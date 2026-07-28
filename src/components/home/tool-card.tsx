@@ -6,7 +6,6 @@ import type { ToolConfig, ToolCategory } from '@/tools/types';
 import { FileText, Code, Search, Image as ImageIcon, Type, Wrench, Video, Music, Calculator, Ruler, Palette, type LucideIcon } from 'lucide-react';
 
 const ICONS: Record<ToolCategory, LucideIcon> = {
-  writing: Type,
   developer: Code,
   seo: Search,
   image: ImageIcon,

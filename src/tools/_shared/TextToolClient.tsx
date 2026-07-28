@@ -1,10 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useI18n } from '@/i18n';
 import {
-  cleanWhitespace,
   convertBase,
   decodeHtmlEntities,
   encodeHtmlEntities,
@@ -55,6 +54,7 @@ export default function TextToolClient() {
   const [useRegex, setUseRegex] = useState(false);
   const [caseSens, setCaseSens] = useState(false);
   const [heMode, setHeMode] = useState<'encode' | 'decode'>('encode');
+  const [heSpace, setHeSpace] = useState(false);
   const [morseMode, setMorseMode] = useState<'to' | 'from'>('to');
   const [num, setNum] = useState('255');
   const [fromBase, setFromBase] = useState(10);
@@ -79,12 +79,27 @@ export default function TextToolClient() {
       setOutput(reverseText(input, revMode));
     } else if (slug === 'word-frequency') {
       setOutput(wordFrequency(input, topN));
-    } else if (slug === 'whitespace-cleaner') {
-      setOutput(cleanWhitespace(input, { trim: opt.trim, collapse: opt.collapse, dropEmpty: opt.empty, crlf: opt.crlf }));
     }
   }
 
-  if (!['text-sorter', 'find-replace', 'html-entity-converter', 'morse-code-converter', 'base-converter', 'text-reverser', 'word-frequency', 'whitespace-cleaner'].includes(slug)) {
+  // HTML 实体转换器：实时转换，无需点击按钮
+  useEffect(() => {
+    if (slug !== 'html-entity-converter') return;
+    setOutput(heMode === 'encode' ? encodeHtmlEntities(input, heSpace) : decodeHtmlEntities(input));
+  }, [slug, input, heMode, heSpace]);
+
+  // 文本排序 / 文字反转 / 进制转换：实时预览，无需点击 Run
+  useEffect(() => {
+    if (slug === 'text-sorter') {
+      setOutput(sortText(input, { asc: sortAsc, dedupe, trim: opt.trim, dropEmpty: opt.empty }));
+    } else if (slug === 'text-reverser') {
+      setOutput(reverseText(input, revMode));
+    } else if (slug === 'base-converter') {
+      setOutput(convertBase(num, fromBase, toBase) ?? 'Invalid number');
+    }
+  }, [slug, input, sortAsc, dedupe, opt.trim, opt.empty, revMode, num, fromBase, toBase]);
+
+  if (!['text-sorter', 'find-replace', 'html-entity-converter', 'morse-code-converter', 'base-converter', 'text-reverser', 'word-frequency'].includes(slug)) {
     return <div className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">Tool not found.</div>;
   }
 
@@ -93,12 +108,14 @@ export default function TextToolClient() {
 
   return (
     <div className="space-y-4">
-      <textarea
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder={t('text.input', 'Type or paste your text here…')}
-        className="h-40 w-full rounded-lg border border-slate-300 bg-white p-3 text-sm text-slate-800"
-      />
+      {slug !== 'base-converter' && (
+        <textarea
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder={t('text.input', 'Type or paste your text here…')}
+          className="h-40 w-full rounded-lg border border-slate-300 bg-white p-3 text-sm text-slate-800"
+        />
+      )}
 
       {slug === 'text-sorter' && (
         <div className="flex flex-wrap gap-4">
@@ -119,12 +136,20 @@ export default function TextToolClient() {
       )}
 
       {slug === 'html-entity-converter' && (
-        <div>
-          <label className={labelCls}>Mode</label>
-          <select className={inpCls} value={heMode} onChange={(e) => setHeMode(e.target.value as 'encode' | 'decode')}>
-            <option value="encode">Encode (text → entities)</option>
-            <option value="decode">Decode (entities → text)</option>
-          </select>
+        <div className="space-y-3">
+          <div>
+            <label className={labelCls}>Mode</label>
+            <select className={inpCls} value={heMode} onChange={(e) => setHeMode(e.target.value as 'encode' | 'decode')}>
+              <option value="encode">Encode (text → entities)</option>
+              <option value="decode">Decode (entities → text)</option>
+            </select>
+          </div>
+          {heMode === 'encode' && (
+            <label className="flex items-center gap-2 text-sm text-slate-600">
+              <input type="checkbox" checked={heSpace} onChange={(e) => setHeSpace(e.target.checked)} />
+              {t('text.spacesToNbsp', 'Convert spaces to &nbsp;')}
+            </label>
+          )}
         </div>
       )}
 
@@ -164,18 +189,11 @@ export default function TextToolClient() {
         </div>
       )}
 
-      {slug === 'whitespace-cleaner' && (
-        <div className="flex flex-wrap gap-4">
-          <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={opt.trim} onChange={(e) => setOpt({ ...opt, trim: e.target.checked })} /> Trim lines</label>
-          <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={opt.collapse} onChange={(e) => setOpt({ ...opt, collapse: e.target.checked })} /> Collapse spaces</label>
-          <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={opt.empty} onChange={(e) => setOpt({ ...opt, empty: e.target.checked })} /> Remove empty lines</label>
-          <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={opt.crlf} onChange={(e) => setOpt({ ...opt, crlf: e.target.checked })} /> CRLF line ends</label>
-        </div>
+      {!['html-entity-converter', 'text-sorter', 'base-converter', 'text-reverser'].includes(slug) && (
+        <button onClick={run} className="rounded-lg bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90">
+          {t('text.run', 'Run')}
+        </button>
       )}
-
-      <button onClick={run} className="rounded-lg bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90">
-        {t('text.run', 'Run')}
-      </button>
 
       {output && <CopyBox text={output} />}
     </div>

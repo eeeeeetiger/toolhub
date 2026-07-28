@@ -10,5 +10,5 @@ export const config: ToolConfig = {
   icon: 'ListOrdered',
   isClientOnly: true,
   features: ['A→Z / Z→A', 'De-duplicate', 'Drop blanks'],
-  relatedTools: ['whitespace-cleaner', 'find-replace', 'text-reverser'],
+  relatedTools: ['find-replace', 'text-reverser'],
 };

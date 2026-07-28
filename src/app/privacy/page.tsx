@@ -73,8 +73,8 @@ export default function PrivacyPage() {
       <Section title="Contact">
         <p>
           Questions about this policy? Email us at{' '}
-          <a href="mailto:privacy@toolhub.dev" className="text-brand hover:underline">
-            privacy@toolhub.dev
+          <a href="mailto:etiger2005@gmail.com" className="text-brand hover:underline">
+            etiger2005@gmail.com
           </a>
           .
         </p>

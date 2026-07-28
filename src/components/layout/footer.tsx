@@ -16,7 +16,7 @@ export function Footer() {
           <div>
             <span className="text-sm font-semibold text-slate-900">ToolHub</span>
             <p className="mt-2 max-w-xs text-xs leading-relaxed text-slate-500">
-              {t('categories.footerTagline', 'Free, fast and private online tools for developers, marketers and creators. Everything runs in your browser — no upload, no signup.')}
+              {t('categories.footerTagline', 'Free, fast and private online tools that run on your device. Everything happens in your browser — no upload, no signup, your files stay yours.')}
             </p>
           </div>
 

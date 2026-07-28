@@ -95,19 +95,23 @@ export const zh = {
       stop: '停止',
     },
   },
+  text: {
+    spacesToNbsp: '将空格转为 &nbsp;',
+  },
   brand: {
     badge: '免费 · 隐私 · 无需注册',
-    heroTitle: '面向开发者与营销人的在线工具',
+    heroTitle: '免费在线工具，全部本地运行',
     heroSubtitle:
-      '不断扩充的免费浏览器工具集。一切都在你的设备上运行——快速、隐私、随时可用。',
+      '打开网页就能用，所有处理都在你的设备上完成。文件不会上传到任何服务器，安全、私密、即开即用。',
   },
   categories: {
     title: '工具分类',
     legal: '法律',
     privacyPolicy: '隐私政策',
     termsOfService: '服务条款',
+    about: '关于我们',
     footerTagline:
-      '面向开发者、营销人和创作者的免费、快速、私密在线工具。一切都在浏览器中运行——无需上传，无需注册。',
+      '免费、快速、私密的在线工具，全部在你的设备上运行。一切都在浏览器里完成——无需上传，无需注册，文件始终在你手中。',
     footerCopyright: 'ToolHub。所有工具均可免费使用。',
     utility: {
       label: '日常工具',
@@ -115,13 +119,6 @@ export const zh = {
       description: '二维码、密码生成、单位换算、计算器、计时器等实用日常工具。',
       intro:
         '一套不断丰富的免费日常在线工具，在浏览器中即开即用。生成二维码和高强度密码，换算单位与时间，快速计算（BMI、贷款、百分比、年龄），从图片取色，制作 favicon，查看或清除照片 EXIF 信息，复制花体字、emoji 与特殊字符。无需注册、无需上传——一切在本地运行，快速且私密。',
-    },
-    writing: {
-      label: '写作工具',
-      short: '写作',
-      description: '立即统计字数、估算阅读时长、分析可读性并润色文案。',
-      intro:
-        '为撰稿人、博主、学生和营销人提供的免费在线写作工具。统计单词与字符数，估算阅读时长，检测英文文案的 Flesch 阅读难易度，清理杂乱文本，并并排对比两个版本——全部在浏览器中完成，无需注册。每个工具都在本地处理文本，内容绝不会离开你的设备。',
     },
     developer: {
       label: '开发者工具',
@@ -530,6 +527,8 @@ export const zh = {
           snake: 'snake_case',
           placeholder: '输入或粘贴要转换的文本…',
           preview: '预览将显示在此处…',
+          results: '实时结果',
+          clickCopy: '点击复制',
         },
       },
       'chmod-calculator': {
@@ -780,6 +779,8 @@ export const zh = {
           gpsLatitude: 'GPS 纬度',
           gpsLongitude: 'GPS 经度',
           gpsAltitude: 'GPS 海拔',
+          preview: '图片预览',
+          cleanPreview: '已清除图片（已移除元数据）',
         },
       },
       'fade-in-out': {
@@ -1164,6 +1165,7 @@ export const zh = {
           remove: '移除',
           avifFallback: '你的浏览器不支持 AVIF 编码，这些文件已改为 PNG 保存。',
           fail: '部分文件无法转换。',
+          decoding: '正在解码图片，请稍候…',
         },
       },
       'image-filter': {
@@ -3103,16 +3105,6 @@ export const zh = {
         play: '播放噪声',
         stop: '停止',
         scenarios: '白噪声：频谱均匀，最适合掩蔽突发杂音（专注办公、保护隐私、隔音）。粉红噪声：能量随频率降低，更柔和自然，常用于助眠、放松、缓解耳鸣。布朗噪声：低频更多，声感深沉如远雷/海浪，适合深度睡眠、安抚婴儿或需要强烈低频遮蔽的场景。',
-      },
-      'whitespace-cleaner': {
-        name: '空白字符清理',
-        description: '修剪、合并并规范化文本中的空白字符。',
-        longDescription: '清理粘贴过来的杂乱文本：修剪每行、合并重复空格、删除空行并统一换行符。本地运行。',
-        features: [
-          '修剪 & 合并',
-          '删除空行',
-          'CRLF 选项',
-        ],
       },
       'word-counter': {
         name: '字数统计',

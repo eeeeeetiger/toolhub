@@ -19,8 +19,9 @@ export interface I18nContextValue {
   locale: Locale;
   locales: readonly Locale[];
   setLocale: (l: Locale) => void;
-  /** Translate a key. Falls back to English source, then `fallback`, then to the key itself. */
-  t: (key: string, fallback?: string) => string;
+  /** Translate a key. Falls back to English source, then `fallback`, then to the key itself.
+   *  If `params` is provided, simple `{name}` tokens are substituted with `params[name]`. */
+  t: (key: string, fallback?: string, params?: Record<string, string | number>) => string;
 }
 
 export function useI18n(): I18nContextValue {
@@ -36,7 +37,8 @@ export function useI18n(): I18nContextValue {
         window.localStorage.setItem(STORAGE_KEY, l);
       }
     },
-    t: (key: string, fallback?: string) => translate(locale, key, fallback),
+    t: (key: string, fallback?: string, params?: Record<string, string | number>) =>
+      translate(locale, key, fallback, params),
   };
 }
 

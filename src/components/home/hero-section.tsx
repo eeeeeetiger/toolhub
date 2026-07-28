@@ -33,13 +33,13 @@ export function HeroSection() {
         </span>
 
         <h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-          {t('brand.heroTitle', 'Free Online Tools for Everyday Tasks')}
+          {t('brand.heroTitle', 'Free Online Tools That Run on Your Device')}
         </h1>
 
         <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-slate-500">
           {t(
             'brand.heroSubtitle',
-            'Convert, compress, edit and create — PDF, video, audio, images and more. Everything runs on your device: fast, private and always free.',
+            'Open the page and start working — every tool runs right in your browser. Your files never leave your device.',
           )}
         </p>
 

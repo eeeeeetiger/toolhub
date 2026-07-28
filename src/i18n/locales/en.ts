@@ -101,17 +101,18 @@ export const en = {
   },
   brand: {
     badge: 'Free · Private · No Signup',
-    heroTitle: 'Online Tools for Developers & Marketers',
+    heroTitle: 'Free Online Tools That Run on Your Device',
     heroSubtitle:
-      'A growing collection of free, browser-based utilities. Everything runs on your device — fast, private and always available.',
+      'Open the page and start working — every tool runs right in your browser. Your files never leave your device.',
   },
   categories: {
     title: 'Tool Categories',
     legal: 'Legal',
     privacyPolicy: 'Privacy Policy',
     termsOfService: 'Terms of Service',
+    about: 'About',
     footerTagline:
-      'Free, fast and private online tools for developers, marketers and creators. Everything runs in your browser — no upload, no signup.',
+      'Free, fast and private online tools that run on your device. Everything happens in your browser — no upload, no signup, your files stay yours.',
     footerCopyright: 'ToolHub. All tools are free to use.',
     utility: {
       label: 'Everyday Tools',
@@ -120,14 +121,6 @@ export const en = {
         'QR codes, password generator, unit converter, calculators, timers and more handy daily tools.',
       intro:
         'A growing collection of free everyday online tools that just work in your browser. Generate QR codes and strong passwords, convert units and time, run quick calculators (BMI, loan, percentage, age), pick colors from an image, create favicons, view or strip photo EXIF data, and copy fancy text, emojis and special characters. No signup, no uploads — everything runs locally on your device, fast and private.',
-    },
-    writing: {
-      label: 'Writing Tools',
-      short: 'Writing',
-      description:
-        'Count words, estimate reading time, analyze readability and polish your copy instantly.',
-      intro:
-        'Free online writing tools for writers, bloggers, students and marketers. Count words and characters, estimate reading time, check the Flesch reading-ease score of your English copy, clean up messy text and compare two versions side by side — all in your browser, no signup required. Every tool processes text locally so your content never leaves your device.',
     },
     developer: {
       label: 'Developer Tools',

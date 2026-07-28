@@ -5,7 +5,7 @@ export const config: ToolConfig = {
   name: 'HTML Entity Converter',
   description: 'Encode or decode HTML entities (&, <, >, " …).',
   longDescription: 'Turn special characters into safe HTML entities for the web, or decode entities back into readable text. Runs entirely in your browser.',
-  category: 'text',
+  category: 'developer',
   keywords: ['html entity encoder', 'html entity decoder', 'encode html', 'decode entities'],
   icon: 'Code2',
   isClientOnly: true,

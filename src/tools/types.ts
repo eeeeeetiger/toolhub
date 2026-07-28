@@ -1,4 +1,4 @@
-export type ToolCategory = 'writing' | 'developer' | 'seo' | 'image' | 'pdf' | 'utility' | 'video' | 'audio' | 'calculators' | 'converters' | 'design' | 'text' | 'documents';
+export type ToolCategory = 'developer' | 'seo' | 'image' | 'pdf' | 'utility' | 'video' | 'audio' | 'calculators' | 'converters' | 'design' | 'text' | 'documents';
 
 export interface ToolConfig {
   slug: string;

@@ -4,11 +4,6 @@ import type { ToolConfig, ToolCategory } from '@/tools/types';
 
 // 每个分类的通用 FAQ（工具未单独配置 faqs 时自动使用），兼顾 AdSense 内容厚度与 SEO。
 const CATEGORY_FAQ: Record<ToolCategory, { q: string; a: string }[]> = {
-  writing: [
-    { q: 'Is this writing tool free to use?', a: 'Yes. Every ToolHub tool is completely free and runs in your browser.' },
-    { q: 'Is my text uploaded to a server?', a: 'No. Your text is processed locally on your device and never leaves your browser.' },
-    { q: 'Do I need to create an account?', a: 'No account or signup is required — just open the tool and start.' },
-  ],
   developer: [
     { q: 'Is this developer tool free?', a: 'Yes, it is 100% free and works entirely in your browser.' },
     { q: 'Is my data sent anywhere?', a: 'No. Everything is processed locally on your device.' },

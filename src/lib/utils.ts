@@ -15,7 +15,19 @@ export function formatFileSize(bytes: number): string {
 
 export function slugify(text: string): string {
   return text
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
+    .replace(/ß/g, 'ss')
+    .replace(/æ/g, 'ae')
+    .replace(/œ/g, 'oe')
+    .replace(/ð/g, 'd')
+    .replace(/þ/g, 'th')
+    .replace(/ø/g, 'o')
+    .replace(/ł/g, 'l')
+    .replace(/đ/g, 'd')
+    .replace(/ș/g, 's')
+    .replace(/ț/g, 't')
     .trim()
     .replace(/[^\w\s-]/g, '')
     .replace(/[\s_-]+/g, '-')

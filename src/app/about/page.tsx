@@ -10,13 +10,13 @@ export default function AboutPage() {
   return (
     <main className="mx-auto max-w-3xl px-6 py-12">
       <h1 className="mb-2 text-3xl font-bold tracking-tight text-slate-900">About ToolHub</h1>
-      <p className="mb-8 text-sm text-slate-400">Free online tools for everyone</p>
+      <p className="mb-8 text-sm text-slate-400">Free online tools that run on your device</p>
 
       <div className="space-y-4 text-sm leading-relaxed text-slate-600">
         <p>
-          ToolHub is a growing collection of free online utilities for developers, marketers, creators
-          and everyday tasks. Convert and compress images, edit PDFs, trim audio and video, run
-          calculators, and more — all in one place.
+          ToolHub is a growing collection of free online utilities that run entirely in your browser. Your
+          files stay on your device — private, secure and always free. Convert and compress images, edit
+          PDFs, trim audio and video, run calculators, and more — all in one place.
         </p>
         <p>
           Our guiding principle is <strong>privacy by design</strong>. Every tool runs entirely in your
@@ -32,8 +32,8 @@ export default function AboutPage() {
         </p>
         <p>
           Have a suggestion for a tool we should add? Email{' '}
-          <a href="mailto:hello@toolhub.dev" className="text-brand hover:underline">
-            hello@toolhub.dev
+          <a href="mailto:etiger2005@gmail.com" className="text-brand hover:underline">
+            etiger2005@gmail.com
           </a>
           .
         </p>

@@ -10,5 +10,5 @@ export const config: ToolConfig = {
   icon: 'Replace',
   isClientOnly: true,
   features: ['Plain or regex', 'Case options', 'Local'],
-  relatedTools: ['text-sorter', 'whitespace-cleaner', 'html-entity-converter'],
+  relatedTools: ['text-sorter', 'html-entity-converter'],
 };

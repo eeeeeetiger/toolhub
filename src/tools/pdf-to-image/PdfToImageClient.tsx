@@ -52,7 +52,7 @@ export default function PdfToImageClient() {
         files[`page-${i}.png`] = new Uint8Array(await blob.arrayBuffer());
         setCount(i);
       }
-      await pdf.destroy();
+      await pdf.cleanup();
 
       const zipped = zipSync(files, { level: 0 });
       downloadBlob(new Blob([zipped as BlobPart], { type: 'application/zip' }), 'pdf-images.zip');

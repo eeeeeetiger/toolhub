@@ -23,16 +23,6 @@ export const CATEGORIES: CategoryMeta[] = [
     icon: 'Wrench',
   },
   {
-    slug: 'writing',
-    label: 'Writing Tools',
-    short: 'Writing',
-    description: 'Count words, check reading time and polish your copy — free writing helpers for bloggers and students.',
-    intro:
-      'Free online writing tools for writers, bloggers, students and marketers. Count words and characters, estimate reading time and see your most frequent keywords to hit essay limits and optimize blog length. Everything runs in your browser with no signup, and your text never leaves your device.',
-    keywords: ['word counter', 'character counter', 'reading time calculator', 'word count tool', 'writing tools online'],
-    icon: 'Type',
-  },
-  {
     slug: 'developer',
     label: 'Developer Tools',
     short: 'Dev Tools',

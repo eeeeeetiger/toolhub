@@ -5,7 +5,6 @@ import { useI18n } from '@/i18n';
 import type { ToolConfig, ToolCategory } from '@/tools/types';
 
 const CATEGORY_LABELS: Record<ToolCategory, string> = {
-  writing: 'Writing Tools',
   developer: 'Developer Tools',
   seo: 'SEO Tools',
   image: 'Image Tools',

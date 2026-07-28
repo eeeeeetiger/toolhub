@@ -36,18 +36,31 @@ export function subscribe(fn: () => void): () => void {
 }
 
 // Pure translation. Falls back to the English source, then `fallback`, then key.
-export function translate(locale: Locale, key: string, fallback?: string): string {
+// If `params` is provided, simple `{name}` tokens in the resolved string are
+// replaced with `params[name]`. Unknown tokens are kept as literals so callers
+// can tell which placeholders were not supplied.
+export function translate(
+  locale: Locale,
+  key: string,
+  fallback?: string,
+  params?: Record<string, string | number>,
+): string {
+  let out: string | undefined;
   if (locale !== 'en') {
-    const local = lookup(dictionaries[locale], key);
-    if (local != null) return local;
+    out = lookup(dictionaries[locale], key);
   }
-  const enVal = lookup(en, key);
-  if (enVal != null) return enVal;
-  return fallback ?? key;
+  if (out == null) out = lookup(en, key);
+  if (out == null) out = fallback ?? key;
+  if (params) {
+    out = out.replace(/\{(\w+)\}/g, (m, k) =>
+      k in params ? String(params[k]) : m,
+    );
+  }
+  return out;
 }
 
-export function translateCurrent(key: string, fallback?: string): string {
-  return translate(currentLocale, key, fallback);
+export function translateCurrent(key: string, fallback?: string, params?: Record<string, string | number>): string {
+  return translate(currentLocale, key, fallback, params);
 }
 
 export { defaultLocale, isLocale, locales };

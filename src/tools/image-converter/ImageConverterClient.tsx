@@ -90,6 +90,7 @@ export default function ImageConverterClient({ lockedTarget }: { lockedTarget?: 
   const [target, setTarget] = useState<Fmt>(lockedMime ?? 'image/png');
   const [quality, setQuality] = useState(92);
   const [converting, setConverting] = useState(false);
+  const [adding, setAdding] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
   const [note, setNote] = useState<string | null>(null);
@@ -176,8 +177,13 @@ export default function ImageConverterClient({ lockedTarget }: { lockedTarget?: 
       if (!list || !list.length) return;
       const imgs = Array.from(list).filter(isAcceptedImage);
       if (!imgs.length) return;
-      const entries = await Promise.all(imgs.map(loadImageMeta));
-      setImages((prev) => [...prev, ...entries]);
+      setAdding(true);
+      try {
+        const entries = await Promise.all(imgs.map(loadImageMeta));
+        setImages((prev) => [...prev, ...entries]);
+      } finally {
+        setAdding(false);
+      }
     },
     [loadImageMeta],
   );
@@ -322,7 +328,8 @@ export default function ImageConverterClient({ lockedTarget }: { lockedTarget?: 
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark"
+            disabled={adding}
+            className="inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-60"
           >
             <Upload className="h-4 w-4" />
             {t('tools.image-converter.addFiles', 'Add Images')}
@@ -330,7 +337,8 @@ export default function ImageConverterClient({ lockedTarget }: { lockedTarget?: 
           <button
             type="button"
             onClick={() => folderInputRef.current?.click()}
-            className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand/40 hover:text-brand"
+            disabled={adding}
+            className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand/40 hover:text-brand disabled:cursor-not-allowed disabled:opacity-60"
           >
             <FolderOpen className="h-4 w-4" />
             {t('tools.image-converter.addFolder', 'Add Folder')}
@@ -360,6 +368,13 @@ export default function ImageConverterClient({ lockedTarget }: { lockedTarget?: 
           }}
         />
       </div>
+
+      {adding && (
+        <div className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600">
+          <Loader2 className="h-4 w-4 animate-spin text-brand" />
+          {t('tools.image-converter.decoding', 'Decoding images, please wait…')}
+        </div>
+      )}
 
       {images.length > 0 && (
         <>

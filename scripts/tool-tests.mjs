@@ -6,7 +6,6 @@ import {
   buildPasswordPool,
   chmodOctalToSymbolic,
   chmodSymbolicToOctal,
-  cleanWhitespace,
   contrastRatio,
   convertBase,
   convertTemp,
@@ -140,10 +139,6 @@ eq(reverseText('a😀b', 'chars'), 'b😀a', 'reverse: surrogate pair safe');
 eq(wordFrequency('the cat the dog the', 10), 'the: 3\ncat: 1\ndog: 1', 'wordFreq: basic');
 eq(wordFrequency('the cat the', 1), 'the: 2', 'wordFreq: topN');
 eq(wordFrequency('', 10), 'No words found', 'wordFreq: empty');
-
-eq(cleanWhitespace('  a   b  \n\n  c  ', { trim: true, collapse: true, dropEmpty: true, crlf: false }), 'a b\nc', 'whitespace: full clean');
-eq(cleanWhitespace('a  b', { trim: false, collapse: true, dropEmpty: false, crlf: false }), 'a b', 'whitespace: collapse only');
-eq(cleanWhitespace('a\nb', { trim: false, collapse: false, dropEmpty: false, crlf: true }), 'a\r\nb', 'whitespace: crlf');
 
 // ============================== dev tools ==============================
 eq(formatSql('SELECT id,name FROM users WHERE active=1 ORDER BY name'),

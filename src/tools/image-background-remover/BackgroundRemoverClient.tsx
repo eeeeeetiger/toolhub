@@ -226,7 +226,11 @@ export default function ImageBackgroundRemoverClient() {
   const updateItem = (id: string, patch: Partial<Item>) =>
     setItems((prev) => prev.map((it) => (it.id === id ? { ...it, ...patch } : it)));
 
-  async function processItem(it: Item): Promise<{ bytes: Uint8Array; url: string; size: number; mode: UsedMode }> {
+  async function processItem(
+    it: Item,
+    mode: ForceMode,
+    tol: number,
+  ): Promise<{ bytes: Uint8Array; url: string; size: number; mode: UsedMode }> {
     const img = await loadImageElement(it.file);
     const w = img.naturalWidth;
     const h = img.naturalHeight;
@@ -238,27 +242,12 @@ export default function ImageBackgroundRemoverClient() {
     ctx.drawImage(img, 0, 0);
     const imgData = ctx.getImageData(0, 0, w, h);
 
-    // 判断本张图走哪种模式
-    // forceMode 是用户/自动检测选定的偏好；这里再按图本身校验
-    let mode: UsedMode = forceMode;
-    const match = edgeMatchRatio(imgData);
-    // auto 逻辑：若选了纯色但边缘匹配度<55%，说明不是纯色背景 → 退回智能
-    if (forceMode === 'solid' && match.ratio < 0.55) {
-      mode = 'smart';
-    }
-
+    // 本次处理使用开始处理前快照的 mode，处理过程中不会被用户切换或自动修改。
     let blob: Blob;
     if (mode === 'solid') {
-      // 调用成熟纯色算法（魔棒+洪水填充+羽化+去色溢）
       const { removeSolidBackground } = await import('./background-remove.worker');
-      const result = removeSolidBackground(imgData, { tolerance, feather: 1 });
-      // 兜底：几乎没抠掉东西(<5%) → 退回智能
-      if (result.bgRatio < 0.05) {
-        blob = await removeBackground(it.file, { output: { format: 'image/png' } });
-        mode = 'smart';
-      } else {
-        blob = await imageDataToPngBlob(result.data);
-      }
+      const result = removeSolidBackground(imgData, { tolerance: tol, feather: 1 });
+      blob = await imageDataToPngBlob(result.data);
     } else {
       blob = await removeBackground(it.file, { output: { format: 'image/png' } });
     }
@@ -270,6 +259,9 @@ export default function ImageBackgroundRemoverClient() {
 
   const processAll = async () => {
     if (processing || !items.length) return;
+    // 快照当前模式与容差，确保一批图片处理过程中模式一致，不受用户中途切换影响。
+    const currentMode = forceMode;
+    const currentTolerance = tolerance;
     setProcessing(true);
     setFeedback(null);
     try {
@@ -277,7 +269,7 @@ export default function ImageBackgroundRemoverClient() {
         if (it.status === 'done') continue;
         updateItem(it.id, { status: 'processing', error: undefined });
         try {
-          const res = await processItem(it);
+          const res = await processItem(it, currentMode, currentTolerance);
           updateItem(it.id, {
             status: 'done',
             resultUrl: res.url,
@@ -400,8 +392,9 @@ export default function ImageBackgroundRemoverClient() {
             <div className="flex gap-1.5">
               <button
                 type="button"
+                disabled={processing}
                 onClick={() => switchMode('solid')}
-                className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
+                className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                   forceMode === 'solid'
                     ? 'bg-brand text-white shadow-sm'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -412,8 +405,9 @@ export default function ImageBackgroundRemoverClient() {
               </button>
               <button
                 type="button"
+                disabled={processing}
                 onClick={() => switchMode('smart')}
-                className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
+                className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                   forceMode === 'smart'
                     ? 'bg-violet-500 text-white shadow-sm'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -455,8 +449,9 @@ export default function ImageBackgroundRemoverClient() {
                 min={10}
                 max={120}
                 value={tolerance}
+                disabled={processing}
                 onChange={(e) => setTolerance(Number(e.target.value))}
-                className="w-full accent-brand"
+                className="w-full accent-brand disabled:opacity-50"
               />
               <p className="mt-1 text-xs text-slate-400">
                 {t('tools.image-background-remover.ui.toleranceNote', 'Larger = more area near the background color is removed. Tip: 30-50 for clean solid backdrops, 60-90 for noisy ones')}

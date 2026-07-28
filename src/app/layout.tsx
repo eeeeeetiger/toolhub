@@ -6,17 +6,17 @@ import { Providers } from './providers';
 
 export const metadata: Metadata = {
   title: {
-    default: 'ToolHub — Free Online Tools for Developers & Marketers',
+    default: 'ToolHub — Free Online Tools That Run on Your Device',
     template: '%s | ToolHub',
   },
   description:
-    'Free, fast and private online tools for developers, marketers and creators. Text, developer, SEO, image and PDF utilities that run entirely in your browser.',
+    'Free, fast and private online tools. Everything runs in your browser — your files never leave your device.',
   keywords:
     'online tools, free tools, json formatter, base64, meta tag generator, image compressor, pdf merge, word counter',
   openGraph: {
     title: 'ToolHub — Free Online Tools',
     description:
-      'Free, fast and private online tools. Everything runs in your browser.',
+      'Free, fast and private online tools. Everything runs in your browser — your files never leave your device.',
     type: 'website',
     locale: 'en_US',
   },

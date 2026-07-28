@@ -74,7 +74,7 @@ export default function PdfMergeClient() {
         disabled={files.length < 2 || merging}
         className="rounded-lg bg-brand px-4 py-1.5 text-sm font-medium text-white hover:bg-brand-dark disabled:opacity-50"
       >
-        {merging ? t('tools.pdf-merge.ui.merging', 'Merging…') : done ? t('tools.pdf-merge.ui.done', 'Downloaded! Merge again') : t('tools.pdf-merge.ui.mergeN', `Merge ${files.length} PDFs`)}
+        {merging ? t('tools.pdf-merge.ui.merging', 'Merging…') : done ? t('tools.pdf-merge.ui.done', 'Downloaded! Merge again') : t('tools.pdf-merge.ui.mergeN', `Merge {n} PDFs`, { n: files.length })}
       </button>
     </div>
   );

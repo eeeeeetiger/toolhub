@@ -22,7 +22,6 @@ import {
 import { getPinnedSlugs, togglePinnedSlug } from '@/lib/search';
 
 const ICONS: Record<ToolCategory, LucideIcon> = {
-  writing: Type,
   developer: Code,
   seo: Search,
   image: ImageIcon,

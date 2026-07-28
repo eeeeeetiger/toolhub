@@ -19,7 +19,7 @@ const MODES: { key: Mode; labelKey: string; fallback: string }[] = [
 export default function CaseConverterClient() {
   const { t } = useI18n();
   const [text, setText] = useState('');
-  const [copied, setCopied] = useState(false);
+  const [copiedKey, setCopiedKey] = useState<Mode | null>(null);
 
   const convert = (mode: Mode, input: string): string => {
     switch (mode) {
@@ -33,8 +33,12 @@ export default function CaseConverterClient() {
   };
 
   const handleCopy = async (mode: Mode) => {
+    if (!text) return;
     const ok = await copyToClipboard(convert(mode, text));
-    if (ok) { setCopied(true); setTimeout(() => setCopied(false), 1500); }
+    if (ok) {
+      setCopiedKey(mode);
+      setTimeout(() => setCopiedKey((cur) => (cur === mode ? null : cur)), 1500);
+    }
   };
 
   return (
@@ -45,19 +49,38 @@ export default function CaseConverterClient() {
         placeholder={t('tools.case-converter.ui.placeholder', 'Type or paste text to convert…')}
         className="h-40 w-full resize-y rounded-lg border border-slate-200 p-3 text-sm text-slate-700 outline-none focus:border-brand focus:ring-1 focus:ring-brand"
       />
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+
+      <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+        {t('tools.case-converter.ui.results', 'Live results')}
+      </p>
+      <div className="space-y-2">
         {MODES.map((m) => (
-          <button
+          <div
             key={m.key}
+            role="button"
+            tabIndex={0}
             onClick={() => handleCopy(m.key)}
-            className="rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-brand/30 hover:bg-brand/[0.04] hover:text-brand"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleCopy(m.key);
+              }
+            }}
+            className="cursor-pointer rounded-lg border border-slate-200 p-3 transition-colors hover:border-brand/40 hover:bg-brand/[0.04] focus:outline-none focus:ring-1 focus:ring-brand"
           >
-            {copied ? t('common.copied', 'Copied!') : t(m.labelKey, m.fallback)}
-          </button>
+            <div className="mb-1.5 flex items-center justify-between gap-2">
+              <span className="text-xs font-semibold text-slate-500">
+                {t(m.labelKey, m.fallback)}
+              </span>
+              <span className="text-xs font-medium text-brand">
+                {copiedKey === m.key ? t('common.copied', 'Copied!') : t('tools.case-converter.ui.clickCopy', 'Click to copy')}
+              </span>
+            </div>
+            <div className="max-h-40 overflow-auto whitespace-pre-wrap break-words text-sm text-slate-700">
+              {text ? convert(m.key, text) : t('tools.case-converter.ui.preview', 'Preview appears here…')}
+            </div>
+          </div>
         ))}
-      </div>
-      <div className="rounded-lg border border-slate-200 p-3 text-sm text-slate-600">
-        {text ? convert('lower', text).slice(0, 200) : t('tools.case-converter.ui.preview', 'Preview appears here…')}
       </div>
     </div>
   );

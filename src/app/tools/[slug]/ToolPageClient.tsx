@@ -247,7 +247,6 @@ const toolComponentMap: Record<string, React.ComponentType> = {
   'base-converter': TextToolClient,
   'text-reverser': TextToolClient,
   'word-frequency': TextToolClient,
-  'whitespace-cleaner': TextToolClient,
   // Developer
   'cron-parser': DevToolClient,
   'chmod-calculator': DevToolClient,

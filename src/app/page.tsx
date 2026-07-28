@@ -5,7 +5,6 @@ import {
   PopularSection,
   DiscoverSection,
 } from '@/components/home/discovery-sections';
-import { NewTools } from '@/components/home/new-tools';
 import { IntroSection } from '@/components/home/intro-section';
 import { FaqSection } from '@/components/home/faq-section';
 import { AdSlot } from '@/components/layout/ad-slot';
@@ -16,7 +15,6 @@ export default function Home() {
       <HeroSection />
       <RecentSection />
       <PopularSection />
-      <NewTools />
       <AdSlot slot="infeed" format="rectangle" className="py-4" />
       <ToolGrid />
       <DiscoverSection />

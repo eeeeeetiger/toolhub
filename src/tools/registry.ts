@@ -156,7 +156,6 @@ import { config as morseConfig } from './morse-code-converter/config';
 import { config as baseConverterConfig } from './base-converter/config';
 import { config as textReverserConfig } from './text-reverser/config';
 import { config as wordFrequencyConfig } from './word-frequency/config';
-import { config as whitespaceCleanerConfig } from './whitespace-cleaner/config';
 
 // Developer
 import { config as cronParserConfig } from './cron-parser/config';
@@ -216,27 +215,30 @@ export const allTools: ToolConfig[] = [
   dnsLookupConfig,
   serpPreviewConfig,
   schemaGeneratorConfig,
-  // Image — 格式转换
-  imageConverterConfig,
+  // Image
   imageCompressorConfig,
-  svgToPngConfig,
-  avifConverterConfig,
-  heicToJpgConfig,
-  // Image — 编辑与调整
   imageResizeCropConfig,
   imageBackgroundRemoverConfig,
   imageWatermarkConfig,
-  imageBorderConfig,
   imageCollageConfig,
-  imageUpscalerConfig,
   imageRedactConfig,
   imageFilterConfig,
-  // Image — 文字
-  ocrConfig,
-  // Image — 动图与表情
+  imageUpscalerConfig,
+  imageConverterConfig,
+  svgToPngConfig,
+  heicToJpgConfig,
+  avifConverterConfig,
+  pngToJpgConfig,
+  jpgToPngConfig,
+  pngToWebpConfig,
+  webpToPngConfig,
+  jpgToWebpConfig,
+  webpToJpgConfig,
   gifEditorConfig,
   gifMakerConfig,
   memeGeneratorConfig,
+  imageBorderConfig,
+  ocrConfig,
   pdfMergeConfig,
   pdfSplitConfig,
   pdfExtractPagesConfig,
@@ -333,7 +335,6 @@ export const allTools: ToolConfig[] = [
   baseConverterConfig,
   textReverserConfig,
   wordFrequencyConfig,
-  whitespaceCleanerConfig,
   // Developer
   cronParserConfig,
   chmodCalculatorConfig,
@@ -377,12 +378,6 @@ export const allTools: ToolConfig[] = [
     calorieCalculatorConfig,
     pregnancyDueDateCalculatorConfig,
     bodyFatCalculatorConfig,
-    pngToJpgConfig,
-    jpgToPngConfig,
-    webpToJpgConfig,
-    webpToPngConfig,
-    pngToWebpConfig,
-    jpgToWebpConfig,
     movToMp4Config,
     mkvToMp4Config,
     webmToMp4Config,

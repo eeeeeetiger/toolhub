@@ -6,7 +6,19 @@
 // 与 src/lib/utils.ts 的 slugify 保持一致（改动请两边同步）。
 function slugify(text: string): string {
   return text
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
+    .replace(/ß/g, 'ss')
+    .replace(/æ/g, 'ae')
+    .replace(/œ/g, 'oe')
+    .replace(/ð/g, 'd')
+    .replace(/þ/g, 'th')
+    .replace(/ø/g, 'o')
+    .replace(/ł/g, 'l')
+    .replace(/đ/g, 'd')
+    .replace(/ș/g, 's')
+    .replace(/ț/g, 't')
     .trim()
     .replace(/[^\w\s-]/g, '')
     .replace(/[\s_-]+/g, '-')
@@ -122,8 +134,10 @@ export function findReplaceText(input: string, find: string, replace: string, op
 
 const HTML_ENTITIES: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
 
-export function encodeHtmlEntities(input: string): string {
-  return input.replace(/[&<>"']/g, (c) => HTML_ENTITIES[c]);
+export function encodeHtmlEntities(input: string, spaces = false): string {
+  let out = input.replace(/[&<>"']/g, (c) => HTML_ENTITIES[c]);
+  if (spaces) out = out.replace(/ /g, '&nbsp;');
+  return out;
 }
 
 // 常见命名实体（覆盖绝大多数实际使用）；数字实体 &#NN; / &#xHH; 全支持。
@@ -198,16 +212,6 @@ export function wordFrequency(input: string, topN: number): string {
   input.toLowerCase().match(/[a-z0-9']+/g)?.forEach((w) => map.set(w, (map.get(w) ?? 0) + 1));
   const arr = Array.from(map.entries()).sort((a, b) => b[1] - a[1]).slice(0, topN);
   return arr.map(([w, c]) => `${w}: ${c}`).join('\n') || 'No words found';
-}
-
-export interface WhitespaceOptions { trim: boolean; collapse: boolean; dropEmpty: boolean; crlf: boolean }
-
-export function cleanWhitespace(input: string, opts: WhitespaceOptions): string {
-  let lines = input.split(/\r?\n/);
-  if (opts.trim) lines = lines.map((l) => l.trim());
-  if (opts.collapse) lines = lines.map((l) => l.replace(/[ \t]+/g, ' '));
-  if (opts.dropEmpty) lines = lines.filter((l) => l.length > 0);
-  return lines.join(opts.crlf ? '\r\n' : '\n');
 }
 
 // ============================== dev tools (DevToolClient) ==============================

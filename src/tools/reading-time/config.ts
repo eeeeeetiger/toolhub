@@ -7,7 +7,7 @@ export const config: ToolConfig = {
     'Estimate how long your text takes to read, with mixed Chinese & English counting — free and instant.',
   longDescription:
     'Paste any text to estimate reading time. Reading Time Estimator counts Chinese characters (≈300 / min) and English words (≈200 / min) separately, then combines them for a realistic total — perfect for bilingual blog posts, newsletters and docs where a single word-count rule gets it wrong.',
-  category: 'writing',
+  category: 'text',
   keywords: ['reading time calculator', 'read time estimate', 'chinese reading time', 'bilingual reading time', 'word count to minutes'],
   icon: 'Type',
   isClientOnly: true,

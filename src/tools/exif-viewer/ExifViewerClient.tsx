@@ -145,14 +145,17 @@ export default function ExifViewerClient() {
   const { t } = useI18n();
   const [meta, setMeta] = useState<TagMap | null>(null);
   const [name, setName] = useState('');
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [loaded, setLoaded] = useState(false);
   const [cleanUrl, setCleanUrl] = useState<string | null>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const imgRef = useRef<HTMLImageElement | null>(null);
 
   const onFile = async (e: ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
     if (!f) return;
     setName(f.name);
     setCleanUrl(null);
+    setLoaded(false);
     const buf = await f.arrayBuffer();
     try {
       setMeta(parseExif(buf));
@@ -160,8 +163,12 @@ export default function ExifViewerClient() {
       setMeta({});
     }
     const url = URL.createObjectURL(f);
+    setPreviewUrl(url);
     const img = new Image();
-    img.onload = () => (imgRef.current = img);
+    img.onload = () => {
+      imgRef.current = img;
+      setLoaded(true);
+    };
     img.src = url;
   };
 
@@ -192,6 +199,23 @@ export default function ExifViewerClient() {
               ? t('tools.exif-viewer.ui.found', 'Metadata found')
               : t('tools.exif-viewer.ui.none', 'No metadata found')}
           </p>
+
+          {previewUrl && (
+            <div className="overflow-hidden rounded-xl border border-brand/15 bg-slate-50 dark:bg-slate-900">
+              <div className="px-4 pt-3 text-xs font-medium uppercase tracking-wide text-slate-400">
+                {t('tools.exif-viewer.ui.preview', 'Image preview')}
+              </div>
+              <div className="flex justify-center p-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={previewUrl}
+                  alt={name}
+                  className="max-h-80 w-auto rounded-lg object-contain shadow-sm"
+                />
+              </div>
+            </div>
+          )}
+
           <div className="overflow-hidden rounded-xl border border-brand/15">
             <table className="w-full text-sm">
               <tbody>
@@ -204,8 +228,9 @@ export default function ExifViewerClient() {
               </tbody>
             </table>
           </div>
+
           <div className="flex flex-wrap items-center gap-3">
-            <button onClick={strip} className="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand/90 disabled:opacity-50" disabled={!imgRef.current}>
+            <button onClick={strip} className="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand/90 disabled:opacity-50" disabled={!loaded}>
               {t('tools.exif-viewer.ui.strip', 'Create clean copy (remove metadata)')}
             </button>
             {cleanUrl && (
@@ -214,6 +239,22 @@ export default function ExifViewerClient() {
               </a>
             )}
           </div>
+
+          {cleanUrl && (
+            <div className="overflow-hidden rounded-xl border border-brand/15 bg-slate-50 dark:bg-slate-900">
+              <div className="px-4 pt-3 text-xs font-medium uppercase tracking-wide text-slate-400">
+                {t('tools.exif-viewer.ui.cleanPreview', 'Cleaned image (metadata removed)')}
+              </div>
+              <div className="flex justify-center p-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={cleanUrl}
+                  alt="cleaned"
+                  className="max-h-80 w-auto rounded-lg object-contain shadow-sm"
+                />
+              </div>
+            </div>
+          )}
         </>
       )}
     </div>
