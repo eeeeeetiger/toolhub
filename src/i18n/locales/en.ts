@@ -498,8 +498,8 @@ export const en = {
       'HTML link code',
       ],
     },
-    'image-background-remover': {
-      name: 'Image Background Remover',
+    'batch-background-remover': {
+      name: 'Batch Background Remover',
       description: 'Remove image backgrounds in your browser. Auto-detects solid vs complex backgrounds, batch-processes files and folders, and downloads a ZIP named <original>_nobg.png.',
       features: [
       'Solid + AI smart',
@@ -509,6 +509,52 @@ export const en = {
       'Named _nobg',
       '100% private',
       ],
+    },
+    'ai-photo-cutout': {
+      name: 'AI Photo Cutout',
+      description: 'Remove image backgrounds with AI right in your browser. Upload a photo, get a transparent PNG, then fine-tune edges with a brush. 100% private — no uploads.',
+      longDescription:
+        'Remove Background uses a U2Net AI model to cut out the subject from any image — people, products, animals, or objects. The model runs entirely in your browser via WebAssembly, so your images never leave your device. After the automatic cutout, switch to brush mode to restore missed areas or erase background spill around hair, fur, or complex edges. Download the foreground as a transparent PNG, or grab the background with the subject removed.',
+      features: ['AI auto cutout', 'Brush refinement', 'Foreground + Background', '100% private'],
+      ui: {
+        dropHint: 'Upload an image to remove the background',
+        formats: 'JPG, PNG, WebP — processed locally, never uploaded',
+        startBtn: 'Remove Background',
+        processing: 'Processing... this runs entirely in your browser',
+        downloading: 'Downloading AI model (first use only)...',
+        refineTitle: 'Refine edges',
+        restore: 'Restore',
+        erase: 'Erase',
+        brushSize: 'Brush size',
+        downloadFg: 'Download Foreground',
+        downloadBg: 'Download Background',
+        startOver: 'Start over with a new image',
+        modelWarning: 'First use downloads a ~44 MB AI model (cached afterwards). This may take 10-30 seconds depending on your connection.',
+        loadError: 'Failed to load image: {reason}',
+        notImage: 'Please upload an image file',
+      },
+    },
+    'portrait-cutout': {
+      name: 'Portrait Cutout',
+      description: 'Cut out people from photos instantly with Google MediaPipe. Upload a portrait, get a transparent PNG in seconds, then refine edges with a brush. Runs locally — no uploads.',
+      longDescription:
+        'Portrait Cutout uses Google MediaPipe Selfie Segmentation to separate people from backgrounds in real time. The model is tiny (~25 KB) and runs entirely in your browser, making it the fastest way to cut out a person from any photo. After the automatic cutout, use the brush tools to fix hair edges, restore missed body parts, or erase background bleed. Download the foreground as a transparent PNG, or grab the background with the person removed.',
+      features: ['MediaPipe AI', 'Ultra-fast person cutout', 'Brush refinement', '100% private'],
+      ui: {
+        dropHint: 'Upload a portrait photo to cut out the person',
+        formats: 'JPG, PNG, WebP — processed locally, never uploaded',
+        startBtn: 'Cut Out Person',
+        processing: 'Processing... this runs entirely in your browser',
+        refineTitle: 'Refine edges',
+        restore: 'Restore',
+        erase: 'Erase',
+        brushSize: 'Brush size',
+        downloadFg: 'Download Foreground',
+        downloadBg: 'Download Background',
+        startOver: 'Start over with a new image',
+        loadError: 'Failed to load image: {reason}',
+        notImage: 'Please upload an image file',
+      },
     },
     'image-border': {
       name: 'Image Border & Rounded Corners',

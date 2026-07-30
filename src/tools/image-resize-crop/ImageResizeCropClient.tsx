@@ -252,6 +252,7 @@ export default function ImageResizeCropClient() {
     mode: 'white',
     color: '#ffffff',
   });
+  const [bgTouched, setBgTouched] = useState(false);
 
   const [blur, setBlur] = useState({ strength: 20, brightness: 100, darken: false });
 
@@ -271,6 +272,13 @@ export default function ImageResizeCropClient() {
 
   const [dragOver, setDragOver] = useState(false);
   const [exporting, setExporting] = useState(false);
+
+  // Crop mode: user draws a rectangle on the image to select the crop area
+  const [cropMode, setCropMode] = useState(false);
+  const [cropRect, setCropRect] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
+  const cropActionRef = useRef<{ type: string; startX: number; startY: number; orig: { x: number; y: number; w: number; h: number } }>({
+    type: 'none', startX: 0, startY: 0, orig: { x: 0, y: 0, w: 0, h: 0 },
+  });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const folderInputRef = useRef<HTMLInputElement>(null);
@@ -326,6 +334,21 @@ export default function ImageResizeCropClient() {
       const img = new Image();
       img.onload = () => {
         const base = file.name.replace(/\.[^.]+$/, '');
+        // Check actual alpha by drawing to a small canvas and sampling pixels
+        const checkCanvas = document.createElement('canvas');
+        const cw = 100;
+        const ch = Math.max(1, Math.round((cw * img.naturalHeight) / img.naturalWidth));
+        checkCanvas.width = cw;
+        checkCanvas.height = ch;
+        const cctx = checkCanvas.getContext('2d');
+        let hasAlpha = false;
+        if (cctx) {
+          cctx.drawImage(img, 0, 0, cw, ch);
+          const data = cctx.getImageData(0, 0, cw, ch).data;
+          for (let i = 3; i < data.length; i += 4) {
+            if (data[i] < 255) { hasAlpha = true; break; }
+          }
+        }
         const entry: ImageEntry = {
           id: makeId(),
           file,
@@ -334,7 +357,7 @@ export default function ImageResizeCropClient() {
           width: img.naturalWidth,
           height: img.naturalHeight,
           mimeType: file.type,
-          hasAlpha: file.type === 'image/png' || file.type === 'image/webp',
+          hasAlpha,
           url,
           transform: defaultTransform(),
         };
@@ -387,6 +410,8 @@ export default function ImageResizeCropClient() {
     setSampleId(null);
     setMultiSize((m) => ({ ...m, cropOverrides: {} }));
     setActiveCropSizeId(null);
+    setCropMode(false);
+    setCropRect(null);
   }, [images]);
 
   // Update the active transform (sample or per-size override).
@@ -431,6 +456,18 @@ export default function ImageResizeCropClient() {
     };
   }, []);
 
+  // Auto-switch background to transparent when the sample image has alpha
+  // (only if the user hasn't manually changed the background setting).
+  useEffect(() => {
+    if (!bgTouched && sample) {
+      if (sample.hasAlpha && background.mode !== 'transparent') {
+        setBackground({ mode: 'transparent', color: '#ffffff' });
+      } else if (!sample.hasAlpha && background.mode === 'transparent') {
+        setBackground({ mode: 'white', color: '#ffffff' });
+      }
+    }
+  }, [sample?.hasAlpha, bgTouched]);
+
   // -------------------------------------------------------------------------
   // Preview rendering
   // -------------------------------------------------------------------------
@@ -440,6 +477,21 @@ export default function ImageResizeCropClient() {
     if (!img) return;
     const canvas = previewRef.current;
     if (!canvas) return;
+    const ctx = canvas.getContext('2d')!;
+
+    if (cropMode) {
+      // In crop mode: render the full image (capped for performance)
+      const maxDim = 1600;
+      const sc = Math.min(1, maxDim / Math.max(sample.width, sample.height));
+      const cw = Math.max(1, Math.round(sample.width * sc));
+      const ch = Math.max(1, Math.round(sample.height * sc));
+      canvas.width = cw;
+      canvas.height = ch;
+      ctx.clearRect(0, 0, cw, ch);
+      ctx.drawImage(img, 0, 0, cw, ch);
+      return;
+    }
+
     const out = renderToCanvas(img, {
       iw: sample.width,
       ih: sample.height,
@@ -453,12 +505,11 @@ export default function ImageResizeCropClient() {
       sourceMime: sample.mimeType,
       quality,
     });
-    const ctx = canvas.getContext('2d')!;
     canvas.width = out.width;
     canvas.height = out.height;
     ctx.clearRect(0, 0, out.width, out.height);
     ctx.drawImage(out, 0, 0);
-  }, [sample, previewSize, fitMode, editingTransform, background, blur, exportFormat, quality]);
+  }, [sample, previewSize, fitMode, editingTransform, background, blur, exportFormat, quality, cropMode]);
 
   useEffect(() => {
     renderPreview();
@@ -520,12 +571,121 @@ export default function ImageResizeCropClient() {
     setPresetId('original');
     setFitMode('cover');
     setBackground({ mode: 'white', color: '#ffffff' });
+    setBgTouched(false);
     setBlur({ strength: 20, brightness: 100, darken: false });
     setExportFormat('original');
     setQuality(90);
     setMultiSize({ enabled: false, selected: [], cropOverrides: {} });
     setActiveCropSizeId(null);
+    setCropMode(false);
+    setCropRect(null);
     if (sample) setImages((prev) => prev.map((i) => (i.id === sample.id ? { ...i, transform: defaultTransform() } : i)));
+  };
+
+  // -------------------------------------------------------------------------
+  // Crop mode
+  // -------------------------------------------------------------------------
+  const targetAspect = previewSize.w / previewSize.h;
+
+  const enterCropMode = () => {
+    setCropMode(true);
+    if (sample) {
+      const imgAsp = sample.width / sample.height;
+      if (imgAsp > targetAspect) {
+        const w = targetAspect / imgAsp;
+        setCropRect({ x: (1 - w) / 2, y: 0, w, h: 1 });
+      } else {
+        const h = imgAsp / targetAspect;
+        setCropRect({ x: 0, y: (1 - h) / 2, w: 1, h });
+      }
+    }
+  };
+
+  const exitCropMode = () => {
+    setCropMode(false);
+  };
+
+  const getCropPos = (e: ReactPointerEvent<HTMLDivElement>): { x: number; y: number } => {
+    const canvas = previewRef.current;
+    if (!canvas) return { x: 0, y: 0 };
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)),
+      y: Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height)),
+    };
+  };
+
+  const HIT = 0.04;
+
+  const onCropDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (!cropMode || !sample) return;
+    e.preventDefault();
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+    const pos = getCropPos(e);
+    const cr = cropRect;
+
+    if (cr) {
+      const onTL = Math.abs(pos.x - cr.x) < HIT && Math.abs(pos.y - cr.y) < HIT;
+      const onTR = Math.abs(pos.x - (cr.x + cr.w)) < HIT && Math.abs(pos.y - cr.y) < HIT;
+      const onBL = Math.abs(pos.x - cr.x) < HIT && Math.abs(pos.y - (cr.y + cr.h)) < HIT;
+      const onBR = Math.abs(pos.x - (cr.x + cr.w)) < HIT && Math.abs(pos.y - (cr.y + cr.h)) < HIT;
+
+      if (onTL || onTR || onBL || onBR) {
+        const type = onTL ? 'resize-tl' : onTR ? 'resize-tr' : onBL ? 'resize-bl' : 'resize-br';
+        cropActionRef.current = { type, startX: pos.x, startY: pos.y, orig: { ...cr } };
+        return;
+      }
+      if (pos.x >= cr.x && pos.x <= cr.x + cr.w && pos.y >= cr.y && pos.y <= cr.y + cr.h) {
+        cropActionRef.current = { type: 'moving', startX: pos.x, startY: pos.y, orig: { ...cr } };
+        return;
+      }
+    }
+    cropActionRef.current = { type: 'drawing', startX: pos.x, startY: pos.y, orig: { x: pos.x, y: pos.y, w: 0, h: 0 } };
+    setCropRect({ x: pos.x, y: pos.y, w: 0, h: 0 });
+  };
+
+  const onCropMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const action = cropActionRef.current;
+    if (action.type === 'none') return;
+    const pos = getCropPos(e);
+
+    if (action.type === 'drawing') {
+      let x = Math.min(action.startX, pos.x);
+      let y = Math.min(action.startY, pos.y);
+      let w = Math.abs(pos.x - action.startX);
+      let h = Math.abs(pos.y - action.startY);
+      if (w / h > targetAspect) w = h * targetAspect;
+      else h = w / targetAspect;
+      setCropRect({ x, y, w, h });
+    } else if (action.type === 'moving') {
+      const dx = pos.x - action.startX;
+      const dy = pos.y - action.startY;
+      const x = Math.max(0, Math.min(1 - action.orig.w, action.orig.x + dx));
+      const y = Math.max(0, Math.min(1 - action.orig.h, action.orig.y + dy));
+      setCropRect({ x, y, w: action.orig.w, h: action.orig.h });
+    } else if (action.type.startsWith('resize')) {
+      const o = action.orig;
+      let x = o.x, y = o.y, w = o.w, h = o.h;
+      if (action.type === 'resize-br') { w = pos.x - o.x; h = pos.y - o.y; }
+      else if (action.type === 'resize-bl') { w = (o.x + o.w) - pos.x; x = pos.x; h = pos.y - o.y; }
+      else if (action.type === 'resize-tr') { w = pos.x - o.x; h = (o.y + o.h) - pos.y; y = pos.y; }
+      else if (action.type === 'resize-tl') { w = (o.x + o.w) - pos.x; x = pos.x; h = (o.y + o.h) - pos.y; y = pos.y; }
+      w = Math.max(0.01, w); h = Math.max(0.01, h);
+      if (w / h > targetAspect) w = h * targetAspect; else h = w / targetAspect;
+      if (x < 0) { w += x; x = 0; }
+      if (y < 0) { h += y; y = 0; }
+      if (x + w > 1) w = 1 - x;
+      if (y + h > 1) h = 1 - y;
+      setCropRect({ x, y, w, h });
+    }
+  };
+
+  const onCropUp = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (cropActionRef.current.type !== 'none') {
+      try { (e.target as HTMLElement).releasePointerCapture(e.pointerId); } catch { /* ignore */ }
+    }
+    cropActionRef.current = { type: 'none', startX: 0, startY: 0, orig: { x: 0, y: 0, w: 0, h: 0 } };
+    if (cropRect && (cropRect.w < 0.02 || cropRect.h < 0.02)) setCropRect(null);
   };
 
   // -------------------------------------------------------------------------
@@ -568,12 +728,32 @@ export default function ImageResizeCropClient() {
       for (const job of jobs) {
         const img = getImg(job.entry);
         if (!img) continue;
+
+        // Apply crop rectangle if set
+        let sourceImg: HTMLImageElement | HTMLCanvasElement = img;
+        let sourceW = job.entry.width;
+        let sourceH = job.entry.height;
+        if (cropRect) {
+          const cx = Math.round(cropRect.x * job.entry.width);
+          const cy = Math.round(cropRect.y * job.entry.height);
+          const cw = Math.max(1, Math.round(cropRect.w * job.entry.width));
+          const ch = Math.max(1, Math.round(cropRect.h * job.entry.height));
+          const cropCanvas = document.createElement('canvas');
+          cropCanvas.width = cw;
+          cropCanvas.height = ch;
+          const cropCtx = cropCanvas.getContext('2d')!;
+          cropCtx.drawImage(img, cx, cy, cw, ch, 0, 0, cw, ch);
+          sourceImg = cropCanvas;
+          sourceW = cw;
+          sourceH = ch;
+        }
+
         const transform: Transform = job.override
           ? { ...job.entry.transform, ...job.override }
           : job.entry.transform;
-        const canvas = renderToCanvas(img, {
-          iw: job.entry.width,
-          ih: job.entry.height,
+        const canvas = renderToCanvas(sourceImg as HTMLImageElement, {
+          iw: sourceW,
+          ih: sourceH,
           W: job.W,
           H: job.H,
           fitMode,
@@ -695,7 +875,50 @@ export default function ImageResizeCropClient() {
             <div className="space-y-3 lg:sticky lg:top-20">
             <div className="flex items-center justify-center rounded-xl border border-slate-200 bg-slate-50 p-4">
               {sample ? (
-                <canvas ref={previewRef} style={previewStyle} className="rounded-lg shadow-sm" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} />
+                <div className="relative inline-block">
+                  <canvas
+                    ref={previewRef}
+                    style={cropMode ? { maxWidth: '100%', maxHeight: '55vh', width: 'auto', height: 'auto', touchAction: 'none', cursor: 'crosshair' } : previewStyle}
+                    className="rounded-lg shadow-sm"
+                    onPointerDown={cropMode ? undefined : onPointerDown}
+                    onPointerMove={cropMode ? undefined : onPointerMove}
+                    onPointerUp={cropMode ? undefined : onPointerUp}
+                  />
+                  {cropMode && cropRect && (
+                    <div
+                      className="absolute inset-0"
+                      style={{ touchAction: 'none', cursor: 'crosshair' }}
+                      onPointerDown={onCropDown}
+                      onPointerMove={onCropMove}
+                      onPointerUp={onCropUp}
+                    >
+                      <div
+                        className="absolute"
+                        style={{
+                          left: `${cropRect.x * 100}%`,
+                          top: `${cropRect.y * 100}%`,
+                          width: `${cropRect.w * 100}%`,
+                          height: `${cropRect.h * 100}%`,
+                          border: '2px solid #fff',
+                          boxShadow: '0 0 0 9999px rgba(0,0,0,0.5)',
+                        }}
+                      >
+                        {['tl', 'tr', 'bl', 'br'].map((c) => (
+                          <div
+                            key={c}
+                            className="absolute h-3 w-3 rounded-sm border-2 border-blue-500 bg-white"
+                            style={{
+                              left: c.includes('l') ? '-6px' : 'auto',
+                              right: c.includes('r') ? '-6px' : 'auto',
+                              top: c.includes('t') ? '-6px' : 'auto',
+                              bottom: c.includes('b') ? '-6px' : 'auto',
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               ) : (
                 <p className="py-10 text-sm text-slate-400">{tb('noSample', 'No image selected')}</p>
               )}
@@ -712,25 +935,43 @@ export default function ImageResizeCropClient() {
               </div>
             )}
 
-            {/* Zoom + reset position (inline, always useful) */}
+            {/* Crop toggle + Zoom + reset position */}
             <div className="flex flex-wrap items-center gap-3">
-              <div className="flex min-w-[200px] flex-1 items-center gap-2">
-                <Maximize className="h-4 w-4 text-slate-400" />
-                <input
-                  type="range"
-                  min={fitMode === 'cover' ? 1 : 0.1}
-                  max={5}
-                  step={0.01}
-                  value={editingTransform.z}
-                  onChange={(e) => onZoom(Number(e.target.value))}
-                  className="w-full accent-brand"
-                />
-                <span className="w-12 text-right text-xs text-slate-500">{Math.round(editingTransform.z * 100)}%</span>
-              </div>
-              {transformChanged && (
+              <button
+                type="button"
+                onClick={() => (cropMode ? exitCropMode() : enterCropMode())}
+                className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
+                  cropMode ? 'bg-brand text-white' : 'border border-slate-200 text-slate-600 hover:bg-slate-100'
+                }`}
+              >
+                <CropIcon className="h-3.5 w-3.5" />
+                {cropMode ? tb('cropActive', 'Done Cropping') : tb('cropMode', 'Crop Area')}
+              </button>
+
+              {!cropMode && (
+                <div className="flex min-w-[200px] flex-1 items-center gap-2">
+                  <Maximize className="h-4 w-4 text-slate-400" />
+                  <input
+                    type="range"
+                    min={fitMode === 'cover' ? 1 : 0.1}
+                    max={5}
+                    step={0.01}
+                    value={editingTransform.z}
+                    onChange={(e) => onZoom(Number(e.target.value))}
+                    className="w-full accent-brand"
+                  />
+                  <span className="w-12 text-right text-xs text-slate-500">{Math.round(editingTransform.z * 100)}%</span>
+                </div>
+              )}
+              {!cropMode && transformChanged && (
                 <button type="button" onClick={resetPosition} className="rounded-lg px-2 py-1 text-xs text-slate-500 hover:text-brand">
                   {tb('resetPosition', 'Reset Position')}
                 </button>
+              )}
+              {cropMode && (
+                <span className="text-xs text-slate-400">
+                  {tb('cropHint', 'Drag to select area, drag corners to resize')}
+                </span>
               )}
             </div>
 
@@ -864,7 +1105,7 @@ export default function ImageResizeCropClient() {
                         key={mode}
                         type="button"
                         disabled={disabled}
-                        onClick={() => setBackground((b) => ({ ...b, mode }))}
+                        onClick={() => { setBgTouched(true); setBackground((b) => ({ ...b, mode })); }}
                         className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors disabled:opacity-40 ${
                           background.mode === mode ? 'border-brand bg-brand/[0.06] text-brand' : 'border-slate-200 text-slate-600 hover:border-brand/30'
                         }`}
@@ -875,7 +1116,7 @@ export default function ImageResizeCropClient() {
                   })}
                   <button
                     type="button"
-                    onClick={() => setBackground((b) => ({ ...b, mode: 'custom' }))}
+                    onClick={() => { setBgTouched(true); setBackground((b) => ({ ...b, mode: 'custom' })); }}
                     className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors ${
                       background.mode === 'custom' ? 'border-brand bg-brand/[0.06] text-brand' : 'border-slate-200 text-slate-600 hover:border-brand/30'
                     }`}
@@ -887,7 +1128,7 @@ export default function ImageResizeCropClient() {
                   <input
                     type="color"
                     value={background.color}
-                    onChange={(e) => setBackground((b) => ({ ...b, color: e.target.value }))}
+                    onChange={(e) => { setBgTouched(true); setBackground((b) => ({ ...b, color: e.target.value })); }}
                     className="mt-2 h-9 w-full cursor-pointer rounded-lg border border-slate-200"
                   />
                 )}

@@ -985,8 +985,8 @@ export const zh = {
           '即时',
         ],
       },
-      'image-background-remover': {
-        name: '图片去背景',
+      'batch-background-remover': {
+        name: '批量去背景',
         description: '在浏览器中去除图片背景。自动识别纯色与复杂背景，批量处理文件与文件夹，并下载以 <original>_nobg.png 命名的 ZIP。',
         longDescription: 'Image Background Remover 完全在浏览器中去除图片背景。它会为每张图片自动选择最佳方式：对纯色或接近纯色的背景使用快速颜色抠除，对带有发丝、毛发或半透明边缘的复杂场景则使用 AI 模型。可一次性上传多个文件或整个文件夹，一键批量处理，预览每张结果，并下载单个 ZIP，其中每个文件都命名为 <original>_nobg.png。一切均在你的设备本地运行——无需上传、无需服务器、完全私密。',
         features: [
@@ -1029,6 +1029,52 @@ export const zh = {
           statusProcessing: '处理中',
           statusDone: '完成',
           statusError: '失败',
+        },
+      },
+      'ai-photo-cutout': {
+        name: 'AI 精细抠图',
+        description: '在浏览器中用 AI 抠出图片主体，生成透明 PNG，还能用笔刷修正边缘。100% 本地运行，图片不会上传。',
+        longDescription:
+          'AI 抠图使用 U2Net 模型自动识别并抠出图片中的人物、产品、动物或物体。模型通过 WebAssembly 在你的浏览器中运行，图片始终保留在本地设备。自动抠图完成后，可用恢复/擦除画笔修正发丝、毛发或复杂边缘，最后分别下载透明前景图或去掉主体的背景图。',
+        features: ['AI 自动抠图', '画笔修正边缘', '前景 + 背景分别下载', '100% 私密'],
+        ui: {
+          dropHint: '上传图片，AI 自动抠出主体',
+          formats: '支持 JPG、PNG、WebP — 本地处理，不会上传',
+          startBtn: '开始抠图',
+          processing: '处理中… 全部在你的浏览器本地运行',
+          downloading: '首次使用需下载 AI 模型（约 44 MB）…',
+          refineTitle: '修正边缘',
+          restore: '恢复',
+          erase: '擦除',
+          brushSize: '画笔大小',
+          downloadFg: '下载前景图',
+          downloadBg: '下载背景图',
+          startOver: '重新上传图片',
+          modelWarning: '首次使用会下载约 44 MB 的 AI 模型（之后缓存复用）。根据网速可能需要 10~30 秒。',
+          loadError: '图片加载失败：{reason}',
+          notImage: '请上传图片文件',
+        },
+      },
+      'portrait-cutout': {
+        name: '人像抠图',
+        description: '用 Google MediaPipe 快速抠出人像。上传照片，秒出透明 PNG，还能用笔刷修正边缘。完全本地运行。',
+        longDescription:
+          '人像抠图使用 Google MediaPipe Selfie Segmentation 模型，专门识别并分离照片中的人物。模型仅约 25 KB，在浏览器中实时运行，速度极快。自动抠图后可用画笔恢复漏掉的身体部位或擦除多余背景，最后分别下载透明前景图或去掉人物的背景图。',
+        features: ['MediaPipe AI', '极速人像抠图', '画笔修正边缘', '100% 私密'],
+        ui: {
+          dropHint: '上传人像照片，自动抠出人物',
+          formats: '支持 JPG、PNG、WebP — 本地处理，不会上传',
+          startBtn: '开始抠图',
+          processing: '处理中… 全部在你的浏览器本地运行',
+          refineTitle: '修正边缘',
+          restore: '恢复',
+          erase: '擦除',
+          brushSize: '画笔大小',
+          downloadFg: '下载前景图',
+          downloadBg: '下载背景图',
+          startOver: '重新上传图片',
+          loadError: '图片加载失败：{reason}',
+          notImage: '请上传图片文件',
         },
       },
       'image-border': {

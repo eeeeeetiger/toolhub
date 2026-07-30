@@ -23,7 +23,7 @@ import SerpPreviewClient from '@/tools/serp-preview/SerpPreviewClient';
 import SchemaGeneratorClient from '@/tools/schema-generator/SchemaGeneratorClient';
 import ImageCompressorClient from '@/tools/image-compressor/ImageCompressorClient';
 import ImageConverterClient from '@/tools/image-converter/ImageConverterClient';
-import ImageBackgroundRemoverClient from '@/tools/image-background-remover/BackgroundRemoverClient';
+import ImageBackgroundRemoverClient from '@/tools/batch-background-remover/BackgroundRemoverClient';
 import ImageResizeCropClient from '@/tools/image-resize-crop/ImageResizeCropClient';
 import WatermarkClient from '@/tools/image-watermark/WatermarkClient';
 import CollageClient from '@/tools/image-collage/CollageClient';
@@ -111,6 +111,7 @@ import ImageFilterClient from '@/tools/image-filter/ImageFilterClient';
 import HeicToJpgClient from '@/tools/heic-to-jpg/HeicToJpgClient';
 import AvifConverterClient from '@/tools/avif-converter/AvifConverterClient';
 import OcrClient from '@/tools/ocr/OcrClient';
+import ImageCutoutClient from '@/tools/_shared/ImageCutoutClient';
 
 // PDF
 import PdfFlattenClient from '@/tools/pdf-flatten/PdfFlattenClient';
@@ -154,7 +155,7 @@ const toolComponentMap: Record<string, React.ComponentType> = {
   'schema-generator': SchemaGeneratorClient,
   'image-compressor': ImageCompressorClient,
   'image-converter': ImageConverterClient,
-  'image-background-remover': ImageBackgroundRemoverClient,
+  'batch-background-remover': ImageBackgroundRemoverClient,
   'image-resize-crop': ImageResizeCropClient,
   'image-watermark': WatermarkClient,
   'image-collage': CollageClient,
@@ -268,6 +269,8 @@ const toolComponentMap: Record<string, React.ComponentType> = {
   'heic-to-jpg': HeicToJpgClient,
   'avif-converter': AvifConverterClient,
   'ocr': OcrClient,
+  'ai-photo-cutout': ImageCutoutClient,
+  'portrait-cutout': ImageCutoutClient,
   // PDF
   'pdf-flatten': PdfFlattenClient,
   'pdf-watermark': PdfWatermarkClient,

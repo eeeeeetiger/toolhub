@@ -12,5 +12,5 @@ export const config: ToolConfig = {
   icon: 'Crop',
   isClientOnly: true,
   features: ['Social presets', 'Fill / Border / Blur', 'Drag & zoom', 'Multi-file', 'Multi-size export', '100% private'],
-  relatedTools: ['image-compressor', 'image-converter', 'image-background-remover'],
+  relatedTools: ['image-compressor', 'image-converter', 'batch-background-remover'],
 };

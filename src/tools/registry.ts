@@ -58,7 +58,7 @@ import { config as serpPreviewConfig } from './serp-preview/config';
 import { config as schemaGeneratorConfig } from './schema-generator/config';
 import { config as imageCompressorConfig } from './image-compressor/config';
 import { config as imageConverterConfig } from './image-converter/config';
-import { config as imageBackgroundRemoverConfig } from './image-background-remover/config';
+import { config as imageBackgroundRemoverConfig } from './batch-background-remover/config';
 import { config as imageResizeCropConfig } from './image-resize-crop/config';
 import { config as imageWatermarkConfig } from './image-watermark/config';
 import { config as imageCollageConfig } from './image-collage/config';
@@ -181,6 +181,8 @@ import { config as imageFilterConfig } from './image-filter/config';
 import { config as heicToJpgConfig } from './heic-to-jpg/config';
 import { config as avifConverterConfig } from './avif-converter/config';
 import { config as ocrConfig } from './ocr/config';
+import { config as removeBackgroundConfig } from './ai-photo-cutout/config';
+import { config as portraitCutoutConfig } from './portrait-cutout/config';
 
 // PDF
 import { config as pdfFlattenConfig } from './pdf-flatten/config';
@@ -239,6 +241,8 @@ export const allTools: ToolConfig[] = [
   memeGeneratorConfig,
   imageBorderConfig,
   ocrConfig,
+  removeBackgroundConfig,
+  portraitCutoutConfig,
   pdfMergeConfig,
   pdfSplitConfig,
   pdfExtractPagesConfig,

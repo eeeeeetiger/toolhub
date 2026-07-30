@@ -1,8 +1,8 @@
 import type { ToolConfig } from '../types';
 
 export const config: ToolConfig = {
-  slug: 'image-background-remover',
-  name: 'Image Background Remover',
+  slug: 'batch-background-remover',
+  name: 'Batch Background Remover',
   description:
     'Remove image backgrounds in your browser. Auto-detects solid vs complex backgrounds, batch-processes files and folders, and downloads a ZIP named <original>_nobg.png.',
   longDescription:

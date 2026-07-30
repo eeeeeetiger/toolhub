@@ -213,11 +213,11 @@ export default function ImageBackgroundRemoverClient() {
     setFeedback(
       mode === 'smart'
         ? t(
-            'tools.image-background-remover.ui.switchedSmart',
+            'tools.batch-background-remover.ui.switchedSmart',
             '已切换至智能模式（AI 抠图）。已把之前处理好的图片重置为待处理，点击「一键去背景」即可用智能方式重新抠图。',
           )
         : t(
-            'tools.image-background-remover.ui.switchedSolid',
+            'tools.batch-background-remover.ui.switchedSolid',
             '已切换至纯色模式（离线色键）。已把之前处理好的图片重置为待处理，点击「一键去背景」即可重新处理。',
           ),
     );
@@ -335,9 +335,9 @@ export default function ImageBackgroundRemoverClient() {
 
   // 检测结果文案
   const detectionLabel = detectedMode === 'solid'
-    ? t('tools.image-background-remover.ui.detectedSolid', 'Detected: solid/simple background')
+    ? t('tools.batch-background-remover.ui.detectedSolid', 'Detected: solid/simple background')
     : detectedMode === 'smart'
-      ? t('tools.image-background-remover.ui.detectedSmart', 'Detected: complex background')
+      ? t('tools.batch-background-remover.ui.detectedSmart', 'Detected: complex background')
       : '';
 
   return (
@@ -355,21 +355,21 @@ export default function ImageBackgroundRemoverClient() {
         }`}
       >
         <FileImage className="h-8 w-8 text-slate-400" />
-        <p className="text-sm text-slate-500">{t('tools.image-background-remover.ui.dropHint', 'Drag & drop images here, or use the buttons below')}</p>
+        <p className="text-sm text-slate-500">{t('tools.batch-background-remover.ui.dropHint', 'Drag & drop images here, or use the buttons below')}</p>
         <div className="flex flex-wrap justify-center gap-2">
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
             className="inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark"
           >
-            <Upload className="h-4 w-4" /> {t('tools.image-background-remover.ui.addFiles', 'Add Images')}
+            <Upload className="h-4 w-4" /> {t('tools.batch-background-remover.ui.addFiles', 'Add Images')}
           </button>
           <button
             type="button"
             onClick={() => folderInputRef.current?.click()}
             className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
           >
-            <FolderOpen className="h-4 w-4" /> {t('tools.image-background-remover.ui.addFolder', 'Add Folder')}
+            <FolderOpen className="h-4 w-4" /> {t('tools.batch-background-remover.ui.addFolder', 'Add Folder')}
           </button>
         </div>
         <input ref={fileInputRef} type="file" accept="image/*" multiple hidden onChange={(e) => addFiles(e.target.files)} />
@@ -382,7 +382,7 @@ export default function ImageBackgroundRemoverClient() {
           {/* 模式选择器：只有两个选项，上传后自动落在检测结果上 */}
           <div className="min-w-[220px] flex-1">
             <label className="mb-1 block text-sm font-medium text-slate-700">
-              {t('tools.image-background-remover.ui.modeLabel', 'Background removal mode')}
+              {t('tools.batch-background-remover.ui.modeLabel', 'Background removal mode')}
               {detectedMode && (
                 <span className="ml-2 font-normal text-emerald-600">
                   ({detectionLabel})
@@ -399,9 +399,9 @@ export default function ImageBackgroundRemoverClient() {
                     ? 'bg-brand text-white shadow-sm'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
-                title={t('tools.image-background-remover.ui.modeSolidDesc', 'Fast, offline — best for solid/simple backgrounds')}
+                title={t('tools.batch-background-remover.ui.modeSolidDesc', 'Fast, offline — best for solid/simple backgrounds')}
               >
-                {t('tools.image-background-remover.ui.modeSolidOpt', 'Solid mode')}
+                {t('tools.batch-background-remover.ui.modeSolidOpt', 'Solid mode')}
               </button>
               <button
                 type="button"
@@ -412,9 +412,9 @@ export default function ImageBackgroundRemoverClient() {
                     ? 'bg-violet-500 text-white shadow-sm'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
-                title={t('tools.image-background-remover.ui.modeSmartDesc', 'AI matting is more accurate; downloads a model on first use')}
+                title={t('tools.batch-background-remover.ui.modeSmartDesc', 'AI matting is more accurate; downloads a model on first use')}
               >
-                {t('tools.image-background-remover.ui.modeSmartOpt', 'Smart mode')}
+                {t('tools.batch-background-remover.ui.modeSmartOpt', 'Smart mode')}
               </button>
             </div>
 
@@ -423,7 +423,7 @@ export default function ImageBackgroundRemoverClient() {
               <p className="mt-2 flex items-start gap-1.5 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-700">
                 <Info className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
                 {t(
-                  'tools.image-background-remover.ui.smartWarning',
+                  'tools.batch-background-remover.ui.smartWarning',
                   '智能模式首次使用需下载约 40MB 的 AI 模型（仅一次，之后浏览器缓存）。适合复杂背景或需要精确抠图的场景。',
                 )}
               </p>
@@ -433,7 +433,7 @@ export default function ImageBackgroundRemoverClient() {
             {forceMode === 'solid' && (
               <p className="mt-1.5 text-xs text-slate-400">
                 <Sparkles className="mr-1 inline h-3.5 w-3.5 text-sky-500" />
-                {t('tools.image-background-remover.ui.solidNote', 'Fast color-key removal, fully offline — no model download')}
+                {t('tools.batch-background-remover.ui.solidNote', 'Fast color-key removal, fully offline — no model download')}
               </p>
             )}
           </div>
@@ -442,7 +442,7 @@ export default function ImageBackgroundRemoverClient() {
           {showTolerance && (
             <div className="min-w-[240px] flex-1">
               <label className="mb-1 block text-sm font-medium text-slate-700">
-                {t('tools.image-background-remover.ui.tolerance', 'Solid background tolerance')}: {tolerance}
+                {t('tools.batch-background-remover.ui.tolerance', 'Solid background tolerance')}: {tolerance}
               </label>
               <input
                 type="range"
@@ -454,7 +454,7 @@ export default function ImageBackgroundRemoverClient() {
                 className="w-full accent-brand disabled:opacity-50"
               />
               <p className="mt-1 text-xs text-slate-400">
-                {t('tools.image-background-remover.ui.toleranceNote', 'Larger = more area near the background color is removed. Tip: 30-50 for clean solid backdrops, 60-90 for noisy ones')}
+                {t('tools.batch-background-remover.ui.toleranceNote', 'Larger = more area near the background color is removed. Tip: 30-50 for clean solid backdrops, 60-90 for noisy ones')}
               </p>
             </div>
           )}
@@ -480,7 +480,7 @@ export default function ImageBackgroundRemoverClient() {
               className="inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark disabled:opacity-60"
             >
               {processing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wand2 className="h-4 w-4" />}
-              {processing ? t('tools.image-background-remover.ui.processing', 'Processing…') : t('tools.image-background-remover.ui.removeAll', 'Remove Background (All)')}
+              {processing ? t('tools.batch-background-remover.ui.processing', 'Processing…') : t('tools.batch-background-remover.ui.removeAll', 'Remove Background (All)')}
             </button>
             <button
               type="button"
@@ -488,7 +488,7 @@ export default function ImageBackgroundRemoverClient() {
               disabled={!canZip}
               className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 disabled:opacity-40"
             >
-              <Download className="h-4 w-4" /> {t('tools.image-background-remover.ui.downloadZip', 'Download All (ZIP)')}
+              <Download className="h-4 w-4" /> {t('tools.batch-background-remover.ui.downloadZip', 'Download All (ZIP)')}
             </button>
             <button
               type="button"
@@ -496,17 +496,17 @@ export default function ImageBackgroundRemoverClient() {
               disabled={processing}
               className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-slate-500 hover:text-red-600 disabled:opacity-40"
             >
-              <Trash2 className="h-4 w-4" /> {t('tools.image-background-remover.ui.clear', 'Clear')}
+              <Trash2 className="h-4 w-4" /> {t('tools.batch-background-remover.ui.clear', 'Clear')}
             </button>
             <span className="ml-auto text-sm text-slate-500">
-              {t('tools.image-background-remover.ui.total', 'Total')} {total} {t('tools.image-background-remover.ui.images', 'images')}
+              {t('tools.batch-background-remover.ui.total', 'Total')} {total} {t('tools.batch-background-remover.ui.images', 'images')}
             </span>
           </div>
 
           {/* 总进度 */}
           <div>
             <div className="mb-1 flex justify-between text-xs text-slate-500">
-              <span>{t('tools.image-background-remover.ui.processed', 'Processed')}: {processed}/{total}</span>
+              <span>{t('tools.batch-background-remover.ui.processed', 'Processed')}: {processed}/{total}</span>
               <span>{percent}%</span>
             </div>
             <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
@@ -525,14 +525,14 @@ export default function ImageBackgroundRemoverClient() {
                     <div className="flex flex-shrink-0 gap-3">
                       {/* 原图 */}
                       <div className="text-center">
-                        <p className="mb-1 text-xs text-slate-400">{t('tools.image-background-remover.ui.previewOriginal', 'Original')}</p>
+                        <p className="mb-1 text-xs text-slate-400">{t('tools.batch-background-remover.ui.previewOriginal', 'Original')}</p>
                         <div className="overflow-hidden rounded-lg border border-slate-200">
                           <img src={it.thumbUrl} alt="" className="h-28 w-28 object-cover sm:h-32 sm:w-32" />
                         </div>
                       </div>
                       {/* 结果（透明棋盘格底） */}
                       <div className="text-center">
-                        <p className="mb-1 text-xs text-slate-400">{t('tools.image-background-remover.ui.previewResult', 'Transparent')}</p>
+                        <p className="mb-1 text-xs text-slate-400">{t('tools.batch-background-remover.ui.previewResult', 'Transparent')}</p>
                         <div
                           className="overflow-hidden rounded-lg border border-slate-200"
                           style={{
@@ -561,8 +561,8 @@ export default function ImageBackgroundRemoverClient() {
                               }`}
                             >
                               {it.usedMode === 'solid'
-                                ? t('tools.image-background-remover.ui.modeSolid', 'Solid')
-                                : t('tools.image-background-remover.ui.modeSmart', 'Smart')}
+                                ? t('tools.batch-background-remover.ui.modeSolid', 'Solid')
+                                : t('tools.batch-background-remover.ui.modeSmart', 'Smart')}
                             </span>
                           )}
                         </div>
@@ -589,7 +589,7 @@ export default function ImageBackgroundRemoverClient() {
                           onClick={() => removeItem(it.id)}
                           disabled={processing}
                           className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-red-600 disabled:opacity-40"
-                          title={t('tools.image-background-remover.ui.remove', 'Remove')}
+                          title={t('tools.batch-background-remover.ui.remove', 'Remove')}
                         >
                           <X className="h-4 w-4" />
                         </button>
@@ -615,7 +615,7 @@ export default function ImageBackgroundRemoverClient() {
                       onClick={() => removeItem(it.id)}
                       disabled={processing}
                       className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-red-600 disabled:opacity-40"
-                      title={t('tools.image-background-remover.ui.remove', 'Remove')}
+                      title={t('tools.batch-background-remover.ui.remove', 'Remove')}
                     >
                       <X className="h-4 w-4" />
                     </button>
@@ -629,12 +629,12 @@ export default function ImageBackgroundRemoverClient() {
 
       <p className="flex items-center gap-1.5 text-center text-xs text-slate-400">
         <Sparkles className="h-3.5 w-3.5" />
-        {t('tools.image-background-remover.ui.privacyNote', 'All processing happens locally in your browser. Images are never uploaded.')}
+        {t('tools.batch-background-remover.ui.privacyNote', 'All processing happens locally in your browser. Images are never uploaded.')}
       </p>
 
       {items.length === 0 && (
         <p className="text-center text-sm text-slate-400">
-          {t('tools.image-background-remover.ui.empty', 'No images yet. Add files or a whole folder to begin.')}
+          {t('tools.batch-background-remover.ui.empty', 'No images yet. Add files or a whole folder to begin.')}
         </p>
       )}
     </div>
@@ -643,10 +643,10 @@ export default function ImageBackgroundRemoverClient() {
 
 function StatusBadge({ status, t }: { status: Status; t: (k: string, f?: string) => string }) {
   const map: Record<Status, { label: string; cls: string; icon: ReactNode }> = {
-    pending: { label: t('tools.image-background-remover.ui.statusPending', 'Waiting'), cls: 'bg-slate-100 text-slate-500', icon: null },
-    processing: { label: t('tools.image-background-remover.ui.statusProcessing', 'Processing'), cls: 'bg-amber-100 text-amber-700', icon: <Loader2 className="h-3 w-3 animate-spin" /> },
-    done: { label: t('tools.image-background-remover.ui.statusDone', 'Done'), cls: 'bg-emerald-100 text-emerald-700', icon: <CheckCircle2 className="h-3 w-3" /> },
-    error: { label: t('tools.image-background-remover.ui.statusError', 'Failed'), cls: 'bg-red-100 text-red-700', icon: <AlertCircle className="h-3 w-3" /> },
+    pending: { label: t('tools.batch-background-remover.ui.statusPending', 'Waiting'), cls: 'bg-slate-100 text-slate-500', icon: null },
+    processing: { label: t('tools.batch-background-remover.ui.statusProcessing', 'Processing'), cls: 'bg-amber-100 text-amber-700', icon: <Loader2 className="h-3 w-3 animate-spin" /> },
+    done: { label: t('tools.batch-background-remover.ui.statusDone', 'Done'), cls: 'bg-emerald-100 text-emerald-700', icon: <CheckCircle2 className="h-3 w-3" /> },
+    error: { label: t('tools.batch-background-remover.ui.statusError', 'Failed'), cls: 'bg-red-100 text-red-700', icon: <AlertCircle className="h-3 w-3" /> },
   };
   const m = map[status];
   return (

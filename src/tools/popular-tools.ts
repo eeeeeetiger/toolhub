@@ -11,7 +11,7 @@ export const POPULAR_TOOL_SLUGS: string[] = [
   'pdf-compress',          // 3  compress PDF (attachment size limits)
   'word-counter',          // 4  word count (students, writers, creators)
   'qr-code-generator',     // 5  QR code (merchants, events, sharing)
-  'image-background-remover', // 6  remove background (ecommerce, photos, ID)
+  'batch-background-remover', // 6  remove background (ecommerce, photos, ID)
   'image-converter',       // 7  image format convert (PNG/JPG/WebP)
   'heic-to-jpg',           // 8  HEIC → JPG (iPhone users, fast-growing)
   'bmi-calculator',        // 9  BMI (health / weight-loss)
