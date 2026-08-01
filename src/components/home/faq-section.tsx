@@ -51,9 +51,9 @@ export function FaqSection() {
           </details>
         ))}
       </div>
-      <p className="mt-6 text-center text-sm text-slate-400">
+      <p className="mt-6 text-center text-sm text-slate-600">
         Looking for something specific?{' '}
-        <Link href="/search" className="text-brand hover:underline">
+        <Link href="/search" className="text-brand underline underline-offset-2">
           Search all tools
         </Link>
         .

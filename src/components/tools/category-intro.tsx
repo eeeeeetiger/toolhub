@@ -24,7 +24,7 @@ export function CategoryIntro({ slug }: { slug: ToolCategory }) {
   const label = CATEGORY_LABELS[slug];
   return (
     <>
-      <nav className="mb-4 flex items-center gap-1.5 text-xs text-slate-400">
+      <nav className="mb-4 flex items-center gap-1.5 text-xs text-slate-600">
         <a href="/" className="transition-colors hover:text-brand">
           {t('common.home', 'Home')}
         </a>

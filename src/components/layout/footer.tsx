@@ -22,7 +22,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold text-slate-900">{t('categories.title', 'Tool Categories')}</h4>
+            <h2 className="text-sm font-semibold text-slate-900">{t('categories.title', 'Tool Categories')}</h2>
             <ul className="mt-2 space-y-1.5">
               {cats.map((c) => (
                 <li key={c.slug}>
@@ -38,7 +38,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold text-slate-900">{t('categories.legal', 'Legal')}</h4>
+            <h2 className="text-sm font-semibold text-slate-900">{t('categories.legal', 'Legal')}</h2>
             <ul className="mt-2 space-y-1.5">
               <li>
                 <Link href="/privacy" className="text-xs text-slate-500 transition-colors hover:text-slate-700">
@@ -59,7 +59,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-slate-200 pt-6 text-center text-xs text-slate-400">
+        <div className="mt-10 border-t border-slate-200 pt-6 text-center text-xs text-slate-600">
           &copy; {new Date().getFullYear()} {t('categories.footerCopyright', `${SITE_NAME}. All tools are free to use.`)}
         </div>
       </div>

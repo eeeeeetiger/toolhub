@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useState, useEffect } from 'react';
+import { use, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { ToolLayout } from '@/components/tools/tool-layout';
 import type { ToolConfig } from '@/tools/types';
@@ -338,21 +338,21 @@ export default function ToolPageClient({
   tool: ToolConfig;
 }) {
   const { slug } = use(params);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     // Register this visit so it surfaces in the home "Recent" section.
     pushRecentSlug(tool.slug);
-  }, []);
+  }, [tool.slug]);
 
   const ToolComponent = toolComponentMap[slug];
 
-  if (!mounted || !ToolComponent) {
+  if (!ToolComponent) {
     return (
-      <div className="flex items-center justify-center py-20 text-slate-400">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600" />
-      </div>
+      <ToolLayout tool={tool} schema={toolJsonLd(tool)}>
+        <p className="py-16 text-center text-sm text-slate-600">
+          This tool is temporarily unavailable.
+        </p>
+      </ToolLayout>
     );
   }
 

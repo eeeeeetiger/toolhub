@@ -24,8 +24,8 @@ export function ToolHeader({ tool }: { tool: ToolConfig }) {
   const categoryLabel = CATEGORY_LABELS[tool.category];
 
   return (
-    <div className="mb-8 fade-in">
-      <nav className="mb-4 flex items-center gap-1.5 text-xs text-slate-400">
+    <div className="mb-8">
+      <nav className="mb-4 flex items-center gap-1.5 text-xs text-slate-600">
         <Link href="/" className="transition-colors hover:text-brand">
           {t('common.home', 'Home')}
         </Link>

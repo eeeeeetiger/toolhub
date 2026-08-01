@@ -45,7 +45,7 @@ export function ToolCard({ tool }: { tool: ToolConfig }) {
           {tool.features.slice(0, 3).map((feat, i) => (
             <span
               key={i}
-              className="inline-block rounded-md bg-slate-50 px-2 py-0.5 text-[10px] text-slate-400"
+              className="inline-block rounded-md bg-slate-50 px-2 py-0.5 text-[10px] text-slate-600"
             >
               {t(`tools.${tool.slug}.features.${i}`, feat)}
             </span>

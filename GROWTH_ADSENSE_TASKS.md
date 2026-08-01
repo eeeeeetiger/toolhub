@@ -32,7 +32,9 @@ Status legend: `[x]` complete, `[-]` in progress, `[ ]` pending, `[U]` user acti
 
 - [x] Codex: split the shared tool route bundle so each page loads only its own tool code.
 - [x] Codex: remove duplicate Related Tools sections from tool pages.
-- [ ] Codex: run mobile/desktop Core Web Vitals audits and address the largest regressions.
+- [x] Codex: run mobile/desktop Lighthouse audits and address the largest Core Web Vitals regressions.
+- [x] Codex: statically render tool interfaces, reserve the route loading height and keep the footer below the first viewport to eliminate initial tool-page layout shift.
+- [x] Codex: fix homepage and shared tool-page accessibility issues found by Lighthouse.
 - [ ] Codex: select the first 20-30 priority tools using demand, current impressions and reliability.
 - [ ] Codex: add tool-specific how-to steps, formats, limits, examples, troubleshooting and FAQs to priority pages.
 - [ ] Codex: replace duplicated category-level FAQ schema on priority pages with genuinely page-specific content.

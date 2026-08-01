@@ -52,7 +52,14 @@ export default function PdfMergeClient() {
 
   return (
     <div className="space-y-4">
-      <input type="file" accept="application/pdf" multiple onChange={addFiles} className="block w-full text-sm text-slate-500 file:mr-3 file:rounded-lg file:border-0 file:bg-brand file:px-4 file:py-2 file:text-white hover:file:bg-brand-dark" />
+      <input
+        type="file"
+        accept="application/pdf"
+        aria-label={t('tools.pdf-merge.ui.chooseFiles', 'Choose PDF files to merge')}
+        multiple
+        onChange={addFiles}
+        className="block w-full text-sm text-slate-500 file:mr-3 file:rounded-lg file:border-0 file:bg-brand file:px-4 file:py-2 file:text-white hover:file:bg-brand-dark"
+      />
 
       {files.length > 0 && (
         <ul className="space-y-2">

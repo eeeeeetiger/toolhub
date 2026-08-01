@@ -36,7 +36,7 @@ function Section({
           </span>
           <div>
             <h2 className="text-lg font-bold tracking-tight text-slate-900">{title}</h2>
-            {desc && <p className="text-xs text-slate-400">{desc}</p>}
+            {desc && <p className="text-xs text-slate-600">{desc}</p>}
           </div>
         </div>
         {action}
