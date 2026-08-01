@@ -52,28 +52,6 @@ export function ToolLayout({ tool, schema, children }: ToolLayoutProps) {
 
         <ToolContent tool={tool} />
 
-        {tool.relatedTools && tool.relatedTools.length > 0 && (
-          <div className="mb-8">
-            <h2 className="mb-3 text-sm font-semibold text-slate-900">
-              {t('common.relatedTools', 'Related Tools')}
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              {tool.relatedTools.map((slug) => {
-                const rel = getToolBySlug(slug);
-                return (
-                  <Link
-                    key={slug}
-                    href={`/tools/${slug}`}
-                    className="inline-flex items-center rounded-lg border border-slate-200 px-3 py-1.5 text-xs text-slate-600 transition-all hover:border-brand/30 hover:bg-brand/[0.02] hover:text-brand"
-                  >
-                    {rel ? t(`tools.${slug}.name`, rel.name) : slug}
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
         <AdSlot slot="footer" format="horizontal" />
 
         <RelatedTools tool={tool} />

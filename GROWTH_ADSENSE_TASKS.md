@@ -15,12 +15,12 @@ Status legend: `[x]` complete, `[-]` in progress, `[ ]` pending, `[U]` user acti
 - [x] Codex: stop changing every sitemap `lastmod` value on each build.
 - [x] Codex: remove unsupported guaranteed-offline claims until a service worker exists.
 - [x] Codex: build and inspect the generated static files.
-- [U] User: deploy the verified build to `offlinetoolhub.com`.
+- [x] Codex/User: deploy the verified build to `offlinetoolhub.com` and confirm the production signals.
 
 ## Phase 1: Establish the measurement baseline
 
 - [x] Codex: add an optional Cloudflare Web Analytics integration controlled by an environment variable.
-- [U] User: enable Cloudflare Web Analytics and set its site token in the GitHub repository secret `CF_WEB_ANALYTICS_TOKEN`.
+- [x] Codex/User: enable Cloudflare Web Analytics and pass the existing `CF_WEB_ANALYTICS_TOKEN` repository secret into the production build.
 - [U] User: create a Google Search Console domain property and add the DNS verification record.
 - [U] User: submit `https://offlinetoolhub.com/sitemap.xml` only after the corrected deployment.
 - [U] User: inspect several priority URLs in Search Console and request indexing where appropriate.
@@ -31,6 +31,7 @@ Status legend: `[x]` complete, `[-]` in progress, `[ ]` pending, `[U]` user acti
 ## Phase 2: Improve product quality and organic traffic
 
 - [x] Codex: split the shared tool route bundle so each page loads only its own tool code.
+- [x] Codex: remove duplicate Related Tools sections from tool pages.
 - [ ] Codex: run mobile/desktop Core Web Vitals audits and address the largest regressions.
 - [ ] Codex: select the first 20-30 priority tools using demand, current impressions and reliability.
 - [ ] Codex: add tool-specific how-to steps, formats, limits, examples, troubleshooting and FAQs to priority pages.
