@@ -37,7 +37,8 @@ jobs:
           NEXT_PUBLIC_ADSENSE_SLOT_HEADER: ${{ secrets.ADSENSE_SLOT_HEADER }}
           NEXT_PUBLIC_ADSENSE_SLOT_INFEED: ${{ secrets.ADSENSE_SLOT_INFEED }}
           NEXT_PUBLIC_ADSENSE_SLOT_FOOTER: ${{ secrets.ADSENSE_SLOT_FOOTER }}
-          NEXT_PUBLIC_SITE_URL: ${{ secrets.SITE_URL_OVERSEAS || 'https://toolhub.dev' }}
+          NEXT_PUBLIC_SITE_URL: https://offlinetoolhub.com
+          NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN: ${{ secrets.CF_WEB_ANALYTICS_TOKEN }}
         run: npm run build
 
       - name: Deploy to Cloudflare Pages

@@ -6,6 +6,7 @@ import { useI18n } from '@/i18n';
 import { LocaleSwitcher } from './locale-switcher';
 import { SearchBox } from './search-box';
 import { MobileNav } from './mobile-drawer';
+import { SITE_NAME } from '@/lib/site';
 
 export function Header() {
   const { t } = useI18n();
@@ -19,10 +20,10 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex shrink-0 items-center gap-2 group">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand text-sm font-semibold text-white shadow-sm shadow-brand/20 transition-transform group-hover:scale-105">
-            TH
+            OT
           </span>
           <span className="hidden text-lg font-semibold tracking-tight text-slate-900 sm:block">
-            ToolHub
+            {SITE_NAME}
           </span>
         </Link>
 

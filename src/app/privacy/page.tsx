@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { SITE_NAME, siteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'How ToolHub handles your data, cookies and advertising.',
+  description: `How ${SITE_NAME} handles your data, analytics, cookies and advertising.`,
+  alternates: { canonical: siteUrl('/privacy') },
 };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -23,7 +25,7 @@ export default function PrivacyPage() {
 
       <Section title="Our core promise">
         <p>
-          ToolHub is a collection of free, browser-based utilities. The defining feature is privacy:
+          {SITE_NAME} is a collection of free, browser-based utilities. The defining feature is privacy:
           <strong> your files and text are processed entirely on your device</strong>. They are never
           uploaded to our servers, and we do not have access to their contents.
         </p>
@@ -40,9 +42,9 @@ export default function PrivacyPage() {
 
       <Section title="Advertising & cookies">
         <p>
-          This website is supported by advertising, including Google AdSense. Google and its partners
-          may use cookies to serve ads based on your prior visits to this or other websites. This is
-          known as personalized advertising.
+          We may use Google AdSense to support this website after advertising is enabled. Google and
+          its partners may use cookies or similar technologies to serve and measure ads, subject to
+          your consent where required by law.
         </p>
         <p>
           You can opt out of personalized advertising by visiting{' '}
@@ -54,12 +56,13 @@ export default function PrivacyPage() {
           >
             Google Ads Settings
           </a>
-          , or control cookies through the consent banner shown in your region.
+          . Where required, the site will provide privacy and consent controls before personalized
+          advertising or other non-essential storage is used.
         </p>
         <p>
-          For users in the European Economic Area and the UK, advertising and non-essential cookies are
-          loaded only after you provide consent via our Consent Management Platform, as required by the
-          GDPR and the ePrivacy Directive.
+          Before advertising is enabled for users in the European Economic Area, the UK or Switzerland,
+          we will use a Google-certified Consent Management Platform to collect and communicate consent
+          choices.
         </p>
       </Section>
 

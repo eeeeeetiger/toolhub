@@ -15,7 +15,7 @@ const CATEGORY_FAQ: Record<ToolCategory, { q: string; a: string }[]> = {
     { q: 'Do I need an account?', a: 'No account or signup is required.' },
   ],
   image: [
-    { q: 'Is this image tool free?', a: 'Yes, every image tool on ToolHub is free to use.' },
+    { q: 'Is this image tool free?', a: 'Yes, every image tool on Offline ToolHub is free to use.' },
     { q: 'Are my images uploaded to a server?', a: 'No. Images are processed locally in your browser for full privacy.' },
     { q: 'What formats are supported?', a: 'Common formats such as JPG, PNG, WebP and more, depending on the tool.' },
   ],
@@ -25,7 +25,7 @@ const CATEGORY_FAQ: Record<ToolCategory, { q: string; a: string }[]> = {
     { q: 'Is there a file size limit?', a: 'Very large files may be slower because processing happens on your device, but there is no hard upload limit.' },
   ],
   utility: [
-    { q: 'Is this tool free?', a: 'Yes, ToolHub tools are free and private.' },
+    { q: 'Is this tool free?', a: 'Yes, Offline ToolHub tools are free and private.' },
     { q: 'Is my data uploaded?', a: 'No. Processing happens locally in your browser.' },
     { q: 'Do I need to sign up?', a: 'No account is needed.' },
   ],
@@ -35,12 +35,12 @@ const CATEGORY_FAQ: Record<ToolCategory, { q: string; a: string }[]> = {
     { q: 'What video formats are supported?', a: 'MP4, MOV, WebM, AVI, MKV and more depending on the tool.' },
   ],
   audio: [
-    { q: 'Is this audio tool free?', a: 'Yes, all audio tools on ToolHub are free.' },
+    { q: 'Is this audio tool free?', a: 'Yes, all audio tools on Offline ToolHub are free.' },
     { q: 'Are my audio files uploaded?', a: 'No. Audio is processed locally in your browser with Web Audio and ffmpeg.wasm.' },
     { q: 'What audio formats are supported?', a: 'MP3, WAV, M4A, OGG and FLAC, depending on the tool.' },
   ],
   calculators: [
-    { q: 'Is this calculator free?', a: 'Yes, every calculator on ToolHub is free.' },
+    { q: 'Is this calculator free?', a: 'Yes, every calculator on Offline ToolHub is free.' },
     { q: 'Is my data stored?', a: 'No. Calculations happen instantly in your browser and nothing is saved.' },
     { q: 'Do I need an account?', a: 'No signup required.' },
   ],

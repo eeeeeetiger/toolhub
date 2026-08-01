@@ -2,20 +2,20 @@ import Link from 'next/link';
 
 const FAQS = [
   {
-    q: 'Are ToolHub tools really free?',
-    a: 'Yes. Every tool on ToolHub is free to use, with no account or signup required.',
+    q: 'Are Offline ToolHub tools really free?',
+    a: 'Yes. Every tool on Offline ToolHub is free to use, with no account or signup required.',
   },
   {
     q: 'Is my data uploaded to a server?',
-    a: 'No. All tools run entirely in your browser. Your files, audio, video and text never leave your device, which keeps them private and lets tools work offline.',
+    a: 'No. All processing runs in your browser. Your files, audio, video and text never leave your device.',
   },
   {
     q: 'What kinds of tools are available?',
-    a: 'ToolHub covers PDF, image, video and audio editing, unit and finance calculators, developer and SEO utilities, text tools and document converters.',
+    a: 'Offline ToolHub covers PDF, image, video and audio editing, unit and finance calculators, developer and SEO utilities, text tools and document converters.',
   },
   {
     q: 'Do I need to install anything?',
-    a: 'No. ToolHub works in any modern web browser — just open a tool and start.',
+    a: 'No. Offline ToolHub works in any modern web browser — just open a tool and start.',
   },
   {
     q: 'Are there any usage limits or watermarks?',

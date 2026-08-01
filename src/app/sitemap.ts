@@ -2,28 +2,34 @@ import type { MetadataRoute } from 'next';
 export const dynamic = 'force-static';
 import { allTools } from '@/tools/registry';
 import { CATEGORIES } from '@/tools/categories';
-
-const BASE = 'https://toolhub.dev';
+import { SITE_URL, siteUrl } from '@/lib/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: BASE, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },
-    { url: `${BASE}/search`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
+    { url: SITE_URL, changeFrequency: 'weekly', priority: 1 },
+    { url: siteUrl('/about'), changeFrequency: 'monthly', priority: 0.4 },
+    { url: siteUrl('/privacy'), changeFrequency: 'yearly', priority: 0.2 },
+    { url: siteUrl('/terms'), changeFrequency: 'yearly', priority: 0.2 },
   ];
 
   const categoryRoutes: MetadataRoute.Sitemap = CATEGORIES.map((c) => ({
-    url: `${BASE}/categories/${c.slug}`,
-    lastModified: new Date(),
+    url: siteUrl(`/categories/${c.slug}`),
     changeFrequency: 'weekly',
     priority: 0.7,
   }));
 
-  const toolRoutes: MetadataRoute.Sitemap = allTools.map((t) => ({
-    url: `${BASE}/tools/${t.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-  }));
+  const toolRoutes: MetadataRoute.Sitemap = allTools.map((t) => {
+    const lastModified = t.addedAt
+      ? new Date(`${t.addedAt}T00:00:00.000Z`)
+      : undefined;
+
+    return {
+      url: siteUrl(`/tools/${t.slug}`),
+      ...(lastModified ? { lastModified } : {}),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    };
+  });
 
   return [...staticRoutes, ...categoryRoutes, ...toolRoutes];
 }

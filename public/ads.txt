@@ -1,4 +1,3 @@
 # Google AdSense ads.txt
-# 申请 AdSense 通过后，登录 AdSense 后台 → 站点 → 获取发布商 ID（格式 pub-XXXXXXXXXXXXXXXX）
-# 把下面的示例行替换成你自己的真实发布商 ID 即可。带 # 的行是注释，AdSense 会忽略。
-google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+# Replace this comment with the exact seller line from AdSense when a real
+# publisher ID has been assigned. Never publish a placeholder pub ID.

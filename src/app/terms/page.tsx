@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { SITE_NAME, siteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
-  description: 'The terms that govern your use of ToolHub free online tools.',
+  description: `The terms that govern your use of ${SITE_NAME} free online tools.`,
+  alternates: { canonical: siteUrl('/terms') },
 };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -23,14 +25,14 @@ export default function TermsPage() {
 
       <Section title="Acceptance of terms">
         <p>
-          By accessing or using ToolHub (the “Service”), you agree to these Terms of Service. If you do
+          By accessing or using {SITE_NAME} (the “Service”), you agree to these Terms of Service. If you do
           not agree, please do not use the Service.
         </p>
       </Section>
 
       <Section title="Use of the tools">
         <p>
-          ToolHub provides free online utilities for personal and commercial use. All processing happens
+          {SITE_NAME} provides free online utilities for personal and commercial use. All processing happens
           in your browser. You are responsible for the content you process and for ensuring you have the
           right to use any files you upload.
         </p>
@@ -47,14 +49,14 @@ export default function TermsPage() {
 
       <Section title="Advertising">
         <p>
-          The Service is supported by third-party advertising, including Google AdSense. Advertisers are
-          responsible for their own content, and their terms apply to any interaction with them.
+          The Service may be supported by third-party advertising, including Google AdSense. Advertisers
+          are responsible for their own content, and their terms apply to any interaction with them.
         </p>
       </Section>
 
       <Section title="Limitation of liability">
         <p>
-          To the maximum extent permitted by law, ToolHub and its operators shall not be liable for any
+          To the maximum extent permitted by law, {SITE_NAME} and its operators shall not be liable for any
           indirect, incidental, or consequential damages arising from your use of the Service.
         </p>
       </Section>

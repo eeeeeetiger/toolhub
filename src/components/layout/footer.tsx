@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { CATEGORIES } from '@/tools/categories';
 import type { ToolCategory } from '@/tools/types';
 import { useI18n } from '@/i18n';
+import { SITE_NAME } from '@/lib/site';
 
 export function Footer() {
   const { t } = useI18n();
@@ -14,7 +15,7 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-12">
         <div className="grid gap-8 sm:grid-cols-3">
           <div>
-            <span className="text-sm font-semibold text-slate-900">ToolHub</span>
+            <span className="text-sm font-semibold text-slate-900">{SITE_NAME}</span>
             <p className="mt-2 max-w-xs text-xs leading-relaxed text-slate-500">
               {t('categories.footerTagline', 'Free, fast and private online tools that run on your device. Everything happens in your browser — no upload, no signup, your files stay yours.')}
             </p>
@@ -59,7 +60,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 border-t border-slate-200 pt-6 text-center text-xs text-slate-400">
-          &copy; {new Date().getFullYear()} {t('categories.footerCopyright', 'ToolHub. All tools are free to use.')}
+          &copy; {new Date().getFullYear()} {t('categories.footerCopyright', `${SITE_NAME}. All tools are free to use.`)}
         </div>
       </div>
     </footer>

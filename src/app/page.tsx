@@ -8,10 +8,22 @@ import {
 import { IntroSection } from '@/components/home/intro-section';
 import { FaqSection } from '@/components/home/faq-section';
 import { AdSlot } from '@/components/layout/ad-slot';
+import { SITE_NAME, SITE_URL } from '@/lib/site';
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE_NAME,
+  url: SITE_URL,
+};
 
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
       <HeroSection />
       <RecentSection />
       <PopularSection />

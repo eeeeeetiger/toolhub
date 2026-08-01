@@ -1,141 +1,142 @@
 'use client';
 
 import { use, useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { ToolLayout } from '@/components/tools/tool-layout';
 import type { ToolConfig } from '@/tools/types';
 import { toolJsonLd } from '@/lib/seo';
 import { pushRecentSlug } from '@/lib/search';
 
-import WordCounterClient from '@/tools/word-counter/WordCounterClient';
-import CaseConverterClient from '@/tools/case-converter/CaseConverterClient';
-import SlugGeneratorClient from '@/tools/slug-generator/SlugGeneratorClient';
-import JsonFormatterClient from '@/tools/json-formatter/JsonFormatterClient';
-import Base64Client from '@/tools/base64/Base64Client';
-import UrlEncoderClient from '@/tools/url-encoder/UrlEncoderClient';
-import UuidGeneratorClient from '@/tools/uuid-generator/UuidGeneratorClient';
-import RegexTesterClient from '@/tools/regex-tester/RegexTesterClient';
-import JwtDecoderClient from '@/tools/jwt-decoder/JwtDecoderClient';
-import MetaTagGeneratorClient from '@/tools/meta-tag-generator/MetaTagGeneratorClient';
-import RobotsTxtGeneratorClient from '@/tools/robots-txt-generator/RobotsTxtGeneratorClient';
-import SitemapGeneratorClient from '@/tools/sitemap-generator/SitemapGeneratorClient';
-import DnsLookupClient from '@/tools/dns-lookup/DnsLookupClient';
-import SerpPreviewClient from '@/tools/serp-preview/SerpPreviewClient';
-import SchemaGeneratorClient from '@/tools/schema-generator/SchemaGeneratorClient';
-import ImageCompressorClient from '@/tools/image-compressor/ImageCompressorClient';
-import ImageConverterClient from '@/tools/image-converter/ImageConverterClient';
-import ImageBackgroundRemoverClient from '@/tools/batch-background-remover/BackgroundRemoverClient';
-import ImageResizeCropClient from '@/tools/image-resize-crop/ImageResizeCropClient';
-import WatermarkClient from '@/tools/image-watermark/WatermarkClient';
-import CollageClient from '@/tools/image-collage/CollageClient';
-import UpscalerClient from '@/tools/image-upscaler/UpscalerClient';
-import RedactClient from '@/tools/image-redact/RedactClient';
-import PdfMergeClient from '@/tools/pdf-merge/PdfMergeClient';
-import PdfSplitClient from '@/tools/pdf-split/PdfSplitClient';
-import PdfExtractPagesClient from '@/tools/pdf-extract-pages/PdfExtractPagesClient';
-import PdfReorganizeClient from '@/tools/pdf-reorganize/PdfReorganizeClient';
-import PdfEncryptClient from '@/tools/pdf-encrypt/PdfEncryptClient';
-import PdfDecryptClient from '@/tools/pdf-decrypt/PdfDecryptClient';
-import ImageToPdfClient from '@/tools/image-to-pdf/ImageToPdfClient';
-import PdfToImageClient from '@/tools/pdf-to-image/PdfToImageClient';
-import PdfExtractTextClient from '@/tools/pdf-extract-text/PdfExtractTextClient';
-import PdfCompressClient from '@/tools/pdf-compress/PdfCompressClient';
-import ReadabilityAnalyzerClient from '@/tools/readability-analyzer/ReadabilityAnalyzerClient';
-import ReadingTimeClient from '@/tools/reading-time/ReadingTimeClient';
-import TextCleanerClient from '@/tools/text-cleaner/TextCleanerClient';
-import DiffViewerClient from '@/tools/diff-viewer/DiffViewerClient';
-import QrCodeGeneratorClient from '@/tools/qr-code-generator/QrCodeGeneratorClient';
-import PasswordGeneratorClient from '@/tools/password-generator/PasswordGeneratorClient';
-import UnitConverterClient from '@/tools/unit-converter/UnitConverterClient';
-import CalculatorClient from '@/tools/calculator/CalculatorClient';
-import TimestampConverterClient from '@/tools/timestamp-converter/TimestampConverterClient';
-import StopwatchTimerClient from '@/tools/stopwatch-timer/StopwatchTimerClient';
-import ColorPickerClient from '@/tools/color-picker/ColorPickerClient';
-import FaviconGeneratorClient from '@/tools/favicon-generator/FaviconGeneratorClient';
-import ExifViewerClient from '@/tools/exif-viewer/ExifViewerClient';
-import FancyTextGeneratorClient from '@/tools/fancy-text-generator/FancyTextGeneratorClient';
-import EmojiPickerClient from '@/tools/emoji-picker/EmojiPickerClient';
-import ImageBorderClient from '@/tools/image-border/ImageBorderClient';
-import GifEditorClient from '@/tools/gif-editor/GifEditorClient';
-import MemeGeneratorClient from '@/tools/meme-generator/MemeGeneratorClient';
-import GifMakerClient from '@/tools/gif-maker/GifMakerClient';
-import VideoConverterClient from '@/tools/video-converter/VideoConverterClient';
-import VideoToGifClient from '@/tools/video-to-gif/VideoToGifClient';
-import VideoCompressorClient from '@/tools/video-compressor/VideoCompressorClient';
-import VideoScreenRecorderClient from '@/tools/video-screen-recorder/VideoScreenRecorderClient';
-import VideoCutterClient from '@/tools/video-cutter/VideoCutterClient';
-import VideoMergerClient from '@/tools/video-merger/VideoMergerClient';
-import VideoSpeedClient from '@/tools/video-speed/VideoSpeedClient';
-import VideoMuteExtractClient from '@/tools/video-mute-extract/VideoMuteExtractClient';
-import VideoWatermarkClient from '@/tools/video-watermark/VideoWatermarkClient';
-import VideoRotateClient from '@/tools/video-rotate/VideoRotateClient';
-import VideoCropClient from '@/tools/video-crop/VideoCropClient';
-import PdfPageNumbersClient from '@/tools/pdf-page-numbers/PdfPageNumbersClient';
-import PdfRotateClient from '@/tools/pdf-rotate/PdfRotateClient';
+const WordCounterClient = dynamic(() => import('@/tools/word-counter/WordCounterClient'));
+const CaseConverterClient = dynamic(() => import('@/tools/case-converter/CaseConverterClient'));
+const SlugGeneratorClient = dynamic(() => import('@/tools/slug-generator/SlugGeneratorClient'));
+const JsonFormatterClient = dynamic(() => import('@/tools/json-formatter/JsonFormatterClient'));
+const Base64Client = dynamic(() => import('@/tools/base64/Base64Client'));
+const UrlEncoderClient = dynamic(() => import('@/tools/url-encoder/UrlEncoderClient'));
+const UuidGeneratorClient = dynamic(() => import('@/tools/uuid-generator/UuidGeneratorClient'));
+const RegexTesterClient = dynamic(() => import('@/tools/regex-tester/RegexTesterClient'));
+const JwtDecoderClient = dynamic(() => import('@/tools/jwt-decoder/JwtDecoderClient'));
+const MetaTagGeneratorClient = dynamic(() => import('@/tools/meta-tag-generator/MetaTagGeneratorClient'));
+const RobotsTxtGeneratorClient = dynamic(() => import('@/tools/robots-txt-generator/RobotsTxtGeneratorClient'));
+const SitemapGeneratorClient = dynamic(() => import('@/tools/sitemap-generator/SitemapGeneratorClient'));
+const DnsLookupClient = dynamic(() => import('@/tools/dns-lookup/DnsLookupClient'));
+const SerpPreviewClient = dynamic(() => import('@/tools/serp-preview/SerpPreviewClient'));
+const SchemaGeneratorClient = dynamic(() => import('@/tools/schema-generator/SchemaGeneratorClient'));
+const ImageCompressorClient = dynamic(() => import('@/tools/image-compressor/ImageCompressorClient'));
+const ImageConverterClient = dynamic(() => import('@/tools/image-converter/ImageConverterClient'));
+const ImageBackgroundRemoverClient = dynamic(() => import('@/tools/batch-background-remover/BackgroundRemoverClient'));
+const ImageResizeCropClient = dynamic(() => import('@/tools/image-resize-crop/ImageResizeCropClient'));
+const WatermarkClient = dynamic(() => import('@/tools/image-watermark/WatermarkClient'));
+const CollageClient = dynamic(() => import('@/tools/image-collage/CollageClient'));
+const UpscalerClient = dynamic(() => import('@/tools/image-upscaler/UpscalerClient'));
+const RedactClient = dynamic(() => import('@/tools/image-redact/RedactClient'));
+const PdfMergeClient = dynamic(() => import('@/tools/pdf-merge/PdfMergeClient'));
+const PdfSplitClient = dynamic(() => import('@/tools/pdf-split/PdfSplitClient'));
+const PdfExtractPagesClient = dynamic(() => import('@/tools/pdf-extract-pages/PdfExtractPagesClient'));
+const PdfReorganizeClient = dynamic(() => import('@/tools/pdf-reorganize/PdfReorganizeClient'));
+const PdfEncryptClient = dynamic(() => import('@/tools/pdf-encrypt/PdfEncryptClient'));
+const PdfDecryptClient = dynamic(() => import('@/tools/pdf-decrypt/PdfDecryptClient'));
+const ImageToPdfClient = dynamic(() => import('@/tools/image-to-pdf/ImageToPdfClient'));
+const PdfToImageClient = dynamic(() => import('@/tools/pdf-to-image/PdfToImageClient'));
+const PdfExtractTextClient = dynamic(() => import('@/tools/pdf-extract-text/PdfExtractTextClient'));
+const PdfCompressClient = dynamic(() => import('@/tools/pdf-compress/PdfCompressClient'));
+const ReadabilityAnalyzerClient = dynamic(() => import('@/tools/readability-analyzer/ReadabilityAnalyzerClient'));
+const ReadingTimeClient = dynamic(() => import('@/tools/reading-time/ReadingTimeClient'));
+const TextCleanerClient = dynamic(() => import('@/tools/text-cleaner/TextCleanerClient'));
+const DiffViewerClient = dynamic(() => import('@/tools/diff-viewer/DiffViewerClient'));
+const QrCodeGeneratorClient = dynamic(() => import('@/tools/qr-code-generator/QrCodeGeneratorClient'));
+const PasswordGeneratorClient = dynamic(() => import('@/tools/password-generator/PasswordGeneratorClient'));
+const UnitConverterClient = dynamic(() => import('@/tools/unit-converter/UnitConverterClient'));
+const CalculatorClient = dynamic(() => import('@/tools/calculator/CalculatorClient'));
+const TimestampConverterClient = dynamic(() => import('@/tools/timestamp-converter/TimestampConverterClient'));
+const StopwatchTimerClient = dynamic(() => import('@/tools/stopwatch-timer/StopwatchTimerClient'));
+const ColorPickerClient = dynamic(() => import('@/tools/color-picker/ColorPickerClient'));
+const FaviconGeneratorClient = dynamic(() => import('@/tools/favicon-generator/FaviconGeneratorClient'));
+const ExifViewerClient = dynamic(() => import('@/tools/exif-viewer/ExifViewerClient'));
+const FancyTextGeneratorClient = dynamic(() => import('@/tools/fancy-text-generator/FancyTextGeneratorClient'));
+const EmojiPickerClient = dynamic(() => import('@/tools/emoji-picker/EmojiPickerClient'));
+const ImageBorderClient = dynamic(() => import('@/tools/image-border/ImageBorderClient'));
+const GifEditorClient = dynamic(() => import('@/tools/gif-editor/GifEditorClient'));
+const MemeGeneratorClient = dynamic(() => import('@/tools/meme-generator/MemeGeneratorClient'));
+const GifMakerClient = dynamic(() => import('@/tools/gif-maker/GifMakerClient'));
+const VideoConverterClient = dynamic(() => import('@/tools/video-converter/VideoConverterClient'));
+const VideoToGifClient = dynamic(() => import('@/tools/video-to-gif/VideoToGifClient'));
+const VideoCompressorClient = dynamic(() => import('@/tools/video-compressor/VideoCompressorClient'));
+const VideoScreenRecorderClient = dynamic(() => import('@/tools/video-screen-recorder/VideoScreenRecorderClient'));
+const VideoCutterClient = dynamic(() => import('@/tools/video-cutter/VideoCutterClient'));
+const VideoMergerClient = dynamic(() => import('@/tools/video-merger/VideoMergerClient'));
+const VideoSpeedClient = dynamic(() => import('@/tools/video-speed/VideoSpeedClient'));
+const VideoMuteExtractClient = dynamic(() => import('@/tools/video-mute-extract/VideoMuteExtractClient'));
+const VideoWatermarkClient = dynamic(() => import('@/tools/video-watermark/VideoWatermarkClient'));
+const VideoRotateClient = dynamic(() => import('@/tools/video-rotate/VideoRotateClient'));
+const VideoCropClient = dynamic(() => import('@/tools/video-crop/VideoCropClient'));
+const PdfPageNumbersClient = dynamic(() => import('@/tools/pdf-page-numbers/PdfPageNumbersClient'));
+const PdfRotateClient = dynamic(() => import('@/tools/pdf-rotate/PdfRotateClient'));
 
 // Audio
-import AudioConverterClient from '@/tools/audio-converter/AudioConverterClient';
-import M4aToMp3Client from '@/tools/m4a-to-mp3/M4aToMp3Client';
-import AudioCutterClient from '@/tools/audio-cutter/AudioCutterClient';
-import AudioCompressorClient from '@/tools/audio-compressor/AudioCompressorClient';
-import AudioMergerClient from '@/tools/audio-merger/AudioMergerClient';
-import AudioRecorderClient from '@/tools/audio-recorder/AudioRecorderClient';
+const AudioConverterClient = dynamic(() => import('@/tools/audio-converter/AudioConverterClient'));
+const M4aToMp3Client = dynamic(() => import('@/tools/m4a-to-mp3/M4aToMp3Client'));
+const AudioCutterClient = dynamic(() => import('@/tools/audio-cutter/AudioCutterClient'));
+const AudioCompressorClient = dynamic(() => import('@/tools/audio-compressor/AudioCompressorClient'));
+const AudioMergerClient = dynamic(() => import('@/tools/audio-merger/AudioMergerClient'));
+const AudioRecorderClient = dynamic(() => import('@/tools/audio-recorder/AudioRecorderClient'));
 
 // Calculators (generic + GPA)
-import GenericCalculatorClient from '@/tools/_shared/CalculatorClient';
-import GpaCalculatorClient from '@/tools/gpa-calculator/GpaCalculatorClient';
+const GenericCalculatorClient = dynamic(() => import('@/tools/_shared/CalculatorClient'));
+const GpaCalculatorClient = dynamic(() => import('@/tools/gpa-calculator/GpaCalculatorClient'));
 
 // Converters (generic + Roman)
-import GenericUnitConverterClient from '@/tools/_shared/UnitConverterClient';
-import RomanNumeralClient from '@/tools/roman-numeral-converter/RomanNumeralClient';
+const GenericUnitConverterClient = dynamic(() => import('@/tools/_shared/UnitConverterClient'));
+const RomanNumeralClient = dynamic(() => import('@/tools/roman-numeral-converter/RomanNumeralClient'));
 
 // Audio P1 + P2
-import AudioFxClient from '@/tools/_shared/AudioFxClient';
-import BpmDetectorClient from '@/tools/bpm-detector/BpmDetectorClient';
-import MicTestClient from '@/tools/mic-test/MicTestClient';
+const AudioFxClient = dynamic(() => import('@/tools/_shared/AudioFxClient'));
+const BpmDetectorClient = dynamic(() => import('@/tools/bpm-detector/BpmDetectorClient'));
+const MicTestClient = dynamic(() => import('@/tools/mic-test/MicTestClient'));
 
 // Text
-import TextToolClient from '@/tools/_shared/TextToolClient';
+const TextToolClient = dynamic(() => import('@/tools/_shared/TextToolClient'));
 
 // Developer
-import DevToolClient from '@/tools/_shared/DevToolClient';
+const DevToolClient = dynamic(() => import('@/tools/_shared/DevToolClient'));
 
 // Utility
-import UtilToolClient from '@/tools/_shared/UtilToolClient';
+const UtilToolClient = dynamic(() => import('@/tools/_shared/UtilToolClient'));
 
 // Design
-import DesignToolClient from '@/tools/_shared/DesignToolClient';
+const DesignToolClient = dynamic(() => import('@/tools/_shared/DesignToolClient'));
 
 // Image
-import SvgToPngClient from '@/tools/svg-to-png/SvgToPngClient';
-import ImageFilterClient from '@/tools/image-filter/ImageFilterClient';
-import HeicToJpgClient from '@/tools/heic-to-jpg/HeicToJpgClient';
-import AvifConverterClient from '@/tools/avif-converter/AvifConverterClient';
-import OcrClient from '@/tools/ocr/OcrClient';
-import ImageCutoutClient from '@/tools/_shared/ImageCutoutClient';
+const SvgToPngClient = dynamic(() => import('@/tools/svg-to-png/SvgToPngClient'));
+const ImageFilterClient = dynamic(() => import('@/tools/image-filter/ImageFilterClient'));
+const HeicToJpgClient = dynamic(() => import('@/tools/heic-to-jpg/HeicToJpgClient'));
+const AvifConverterClient = dynamic(() => import('@/tools/avif-converter/AvifConverterClient'));
+const OcrClient = dynamic(() => import('@/tools/ocr/OcrClient'));
+const ImageCutoutClient = dynamic(() => import('@/tools/_shared/ImageCutoutClient'));
 
 // PDF
-import PdfFlattenClient from '@/tools/pdf-flatten/PdfFlattenClient';
-import PdfWatermarkClient from '@/tools/pdf-watermark/PdfWatermarkClient';
-import PdfStampClient from '@/tools/pdf-stamp/PdfStampClient';
+const PdfFlattenClient = dynamic(() => import('@/tools/pdf-flatten/PdfFlattenClient'));
+const PdfWatermarkClient = dynamic(() => import('@/tools/pdf-watermark/PdfWatermarkClient'));
+const PdfStampClient = dynamic(() => import('@/tools/pdf-stamp/PdfStampClient'));
 
 // Documents
-import CsvJsonClient from '@/tools/_shared/CsvJsonClient';
-import ExcelClient from '@/tools/_shared/ExcelClient';
-import OfficePdfClient from '@/tools/_shared/OfficePdfClient';
-import XmlJsonClient from '@/tools/_shared/XmlJsonClient';
+const CsvJsonClient = dynamic(() => import('@/tools/_shared/CsvJsonClient'));
+const ExcelClient = dynamic(() => import('@/tools/_shared/ExcelClient'));
+const OfficePdfClient = dynamic(() => import('@/tools/_shared/OfficePdfClient'));
+const XmlJsonClient = dynamic(() => import('@/tools/_shared/XmlJsonClient'));
 
-import AudioFormatPairClient from '@/tools/_shared/AudioFormatPairClient';
-import ImageFormatPairClient from '@/tools/_shared/ImageFormatPairClient';
-import VideoFormatPairClient from '@/tools/_shared/VideoFormatPairClient';
-import KeyboardTestClient from '@/tools/keyboard-test/KeyboardTestClient';
-import MouseTestClient from '@/tools/mouse-test/MouseTestClient';
-import DeadPixelTestClient from '@/tools/dead-pixel-test/DeadPixelTestClient';
-import WebcamTestClient from '@/tools/webcam-test/WebcamTestClient';
-import MetronomeClient from '@/tools/metronome/MetronomeClient';
-import WhiteNoiseClient from '@/tools/white-noise-generator/WhiteNoiseClient';
-import VocalRemoverClient from '@/tools/vocal-remover/VocalRemoverClient';
-import TunerClient from '@/tools/tuner/TunerClient';
-import SignatureMakerClient from '@/tools/signature-maker/SignatureMakerClient';
+const AudioFormatPairClient = dynamic(() => import('@/tools/_shared/AudioFormatPairClient'));
+const ImageFormatPairClient = dynamic(() => import('@/tools/_shared/ImageFormatPairClient'));
+const VideoFormatPairClient = dynamic(() => import('@/tools/_shared/VideoFormatPairClient'));
+const KeyboardTestClient = dynamic(() => import('@/tools/keyboard-test/KeyboardTestClient'));
+const MouseTestClient = dynamic(() => import('@/tools/mouse-test/MouseTestClient'));
+const DeadPixelTestClient = dynamic(() => import('@/tools/dead-pixel-test/DeadPixelTestClient'));
+const WebcamTestClient = dynamic(() => import('@/tools/webcam-test/WebcamTestClient'));
+const MetronomeClient = dynamic(() => import('@/tools/metronome/MetronomeClient'));
+const WhiteNoiseClient = dynamic(() => import('@/tools/white-noise-generator/WhiteNoiseClient'));
+const VocalRemoverClient = dynamic(() => import('@/tools/vocal-remover/VocalRemoverClient'));
+const TunerClient = dynamic(() => import('@/tools/tuner/TunerClient'));
+const SignatureMakerClient = dynamic(() => import('@/tools/signature-maker/SignatureMakerClient'));
 
 const toolComponentMap: Record<string, React.ComponentType> = {
   'word-counter': WordCounterClient,

@@ -6,6 +6,7 @@ import { ToolCard } from '@/components/home/tool-card';
 import { AdSlot } from '@/components/layout/ad-slot';
 import { CategoryIntro } from '@/components/tools/category-intro';
 import type { ToolCategory } from '@/tools/types';
+import { SITE_NAME, siteUrl } from '@/lib/site';
 
 export function generateStaticParams() {
   return CATEGORIES.map((c) => ({ category: c.slug }));
@@ -19,13 +20,19 @@ export async function generateMetadata({
   const { category } = await params;
   const meta = getCategory(category);
   if (!meta) return {};
-  const url = `https://toolhub.dev/categories/${meta.slug}`;
+  const url = siteUrl(`/categories/${meta.slug}`);
   return {
     title: `${meta.label} — Free Online Utilities`,
     description: meta.description,
     keywords: meta.keywords,
     alternates: { canonical: url },
-    openGraph: { title: meta.label, description: meta.description, url, type: 'website' },
+    openGraph: {
+      title: meta.label,
+      description: meta.description,
+      url,
+      siteName: SITE_NAME,
+      type: 'website',
+    },
   };
 }
 

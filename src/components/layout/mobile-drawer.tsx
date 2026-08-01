@@ -6,6 +6,7 @@ import { useI18n } from '@/i18n';
 import { CATEGORIES } from '@/tools/categories';
 import { SearchBox } from './search-box';
 import { Menu, X, LayoutGrid } from 'lucide-react';
+import { SITE_NAME } from '@/lib/site';
 
 export function MobileNav() {
   const { t } = useI18n();
@@ -30,7 +31,7 @@ export function MobileNav() {
           />
           <div className="absolute inset-y-0 left-0 flex w-[85%] max-w-sm flex-col bg-white shadow-2xl">
             <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3">
-              <span className="text-base font-semibold text-slate-900">ToolHub</span>
+              <span className="text-base font-semibold text-slate-900">{SITE_NAME}</span>
               <button
                 type="button"
                 onClick={() => setOpen(false)}

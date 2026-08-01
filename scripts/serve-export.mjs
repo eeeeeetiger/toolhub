@@ -1,10 +1,10 @@
-// Static server for the exported site in out_export/.
+// Static server for the exported site in out/ (or EXPORT_DIR when provided).
 // Supports Next.js export clean URLs: /tools/foo -> /tools/foo.html, / -> /index.html.
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import { join, extname, normalize } from 'node:path';
 
-const ROOT = join(process.cwd(), 'out_export');
+const ROOT = join(process.cwd(), process.env.EXPORT_DIR || 'out');
 const PORT = Number(process.env.PORT || 8080);
 const TYPES = {
   '.html': 'text/html; charset=utf-8',

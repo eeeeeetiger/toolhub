@@ -1,10 +1,10 @@
-import { Zap, Lock, WifiOff } from 'lucide-react';
+import { Zap, Lock, Laptop } from 'lucide-react';
 
 const ITEMS = [
   {
     icon: Zap,
     title: 'Free forever',
-    body: 'Every tool on ToolHub is completely free to use. No account, no signup, no subscriptions and no hidden limits — open a tool and get the job done in seconds.',
+    body: 'Every tool on Offline ToolHub is completely free to use. No account, no signup, no subscriptions and no hidden limits — open a tool and get the job done in seconds.',
   },
   {
     icon: Lock,
@@ -12,9 +12,9 @@ const ITEMS = [
     body: 'All processing happens locally in your browser. Your files, audio, video, images and text never leave your device, so nothing is uploaded, stored or shared.',
   },
   {
-    icon: WifiOff,
-    title: 'Works offline',
-    body: 'Because tools run entirely on your device, many of them keep working even without an internet connection. Fast, dependable and available wherever you are.',
+    icon: Laptop,
+    title: 'Runs locally',
+    body: 'Processing happens on your device instead of an upload server. Results stay fast and private without sending your working files elsewhere.',
   },
 ];
 
@@ -26,7 +26,7 @@ export function IntroSection() {
           Free online tools that respect your privacy
         </h2>
         <p className="mx-auto mb-10 max-w-2xl text-center text-sm leading-relaxed text-slate-500">
-          ToolHub brings together PDF, image, video and audio tools, finance and health
+          Offline ToolHub brings together PDF, image, video and audio tools, finance and health
           calculators, developer and SEO utilities, text tools and document converters —
           all running instantly in your browser.
         </p>
