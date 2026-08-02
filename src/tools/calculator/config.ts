@@ -13,4 +13,16 @@ export const config: ToolConfig = {
   isClientOnly: true,
   features: ['BMI calculator', 'Loan / mortgage', 'Percentage', 'Age calculator'],
   relatedTools: ['unit-converter', 'timestamp-converter'],
+
+  howTo: [
+    'Open Calculator Suite in your browser.',
+    'Add your input or file.',
+    'Get the result instantly — processed locally, nothing is uploaded.',
+  ],
+  faqs: [
+    { q: 'Is Calculator Suite free?', a: 'Yes, Offline ToolHub tools are free and private.' },
+    { q: 'Is my data uploaded?', a: 'No. Processing happens locally in your browser.' },
+    { q: 'Do I need to sign up?', a: 'No account is needed.' },
+    { q: 'Does it work offline?', a: 'Once loaded, Calculator Suite runs entirely on your device.' },
+  ],
 };

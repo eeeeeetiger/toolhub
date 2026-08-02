@@ -25,8 +25,11 @@ jobs:
           node-version: 22
           cache: npm
 
+      # 用 npm install 而非 npm ci：本仓库 package-lock.json 可能暂时与 package.json
+      # 不完全同步（本地新增依赖时），npm install 会在 CI 联网时自动补齐 lock 并安装，
+      # 避免 npm ci 因 lock 不一致直接报错失败。CI 使用 npmjs.org，不受影响。
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build (static export → out/)
         # 海外构建：默认不接广告（占位）。拿到 AdSense 账号后，在仓库 Secrets 填

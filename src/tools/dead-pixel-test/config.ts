@@ -13,4 +13,11 @@ export const config: ToolConfig = {
   relatedTools: ['keyboard-test', 'mouse-test'],
   howTo: ['Open the tester and allow access if prompted.', 'Interact with your device to see the live readout.', 'Use the result to confirm your hardware works.'],
   addedAt: '2026-07-21',
+
+  faqs: [
+    { q: 'Is Dead Pixel Test free?', a: 'Yes, Offline ToolHub tools are free and private.' },
+    { q: 'Is my data uploaded?', a: 'No. Processing happens locally in your browser.' },
+    { q: 'Do I need to sign up?', a: 'No account is needed.' },
+    { q: 'Does it work offline?', a: 'Once loaded, Dead Pixel Test runs entirely on your device.' },
+  ],
 };

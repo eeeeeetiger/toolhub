@@ -13,4 +13,16 @@ export const config: ToolConfig = {
   isClientOnly: true,
   features: ['Searchable', '12 categories', 'One-click copy', 'Emoji + symbols'],
   relatedTools: ['fancy-text-generator', 'color-picker'],
+
+  howTo: [
+    'Open Emoji & Symbol Picker in your browser.',
+    'Add your input or file.',
+    'Get the result instantly — processed locally, nothing is uploaded.',
+  ],
+  faqs: [
+    { q: 'Is Emoji & Symbol Picker free?', a: 'Yes, Offline ToolHub tools are free and private.' },
+    { q: 'Is my data uploaded?', a: 'No. Processing happens locally in your browser.' },
+    { q: 'Do I need to sign up?', a: 'No account is needed.' },
+    { q: 'Does it work offline?', a: 'Once loaded, Emoji & Symbol Picker runs entirely on your device.' },
+  ],
 };

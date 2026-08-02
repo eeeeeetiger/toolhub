@@ -11,4 +11,16 @@ export const config: ToolConfig = {
   isClientOnly: true,
   features: ['X/Y/blur/spread', 'Inset option', 'Copy CSS'],
   relatedTools: ['css-gradient-generator', 'color-contrast-checker', 'aspect-ratio-calculator'],
+
+  howTo: [
+    'Open Box Shadow Generator in your browser.',
+    'Set your options or pick colors / values.',
+    'Copy or download the generated output — created locally on your device.',
+  ],
+  faqs: [
+    { q: 'Is Box Shadow Generator free?', a: 'Yes, and it runs entirely in your browser.' },
+    { q: 'Is my work uploaded?', a: 'No. Everything is generated locally on your device.' },
+    { q: 'Do I need an account?', a: 'No account or signup is required.' },
+    { q: 'Can I export the result?', a: 'Yes. Copy or download the output directly from your browser.' },
+  ],
 };

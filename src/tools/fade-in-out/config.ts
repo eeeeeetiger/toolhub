@@ -12,4 +12,17 @@ export const config: ToolConfig = {
   isClientOnly: true,
   features: ['Fade in & out', 'MP3 or WAV output', 'Private processing'],
   relatedTools: ['reverse-audio', 'volume-normalizer', 'audio-speed'],
+
+  howTo: [
+    'Open Audio Fade In / Out in your browser.',
+    'Add your audio file.',
+    'Adjust options, then process it locally with Web Audio / ffmpeg.wasm.',
+    'Download the result — nothing is uploaded.',
+  ],
+  faqs: [
+    { q: 'Is Audio Fade In / Out free?', a: 'Yes, all audio tools on Offline ToolHub are free.' },
+    { q: 'Are my audio files uploaded?', a: 'No. Audio is processed locally in your browser with Web Audio and ffmpeg.wasm.' },
+    { q: 'What audio formats are supported?', a: 'MP3, WAV, M4A, OGG and FLAC, depending on the tool.' },
+    { q: 'Do I need an account?', a: 'No signup required.' },
+  ],
 };

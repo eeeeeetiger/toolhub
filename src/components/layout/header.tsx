@@ -35,6 +35,12 @@ export function Header() {
         {/* Right actions — never shrink */}
         <div className="flex shrink-0 items-center gap-2">
           <Link
+            href="/blog"
+            className="hidden rounded-lg px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 sm:block"
+          >
+            {t('common.blog', 'Blog')}
+          </Link>
+          <Link
             href="/#tools"
             className="hidden rounded-lg bg-brand px-4 py-1.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-brand-dark sm:block"
           >

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useI18n } from '@/i18n';
 import { CATEGORIES } from '@/tools/categories';
 import { SearchBox } from './search-box';
-import { Menu, X, LayoutGrid } from 'lucide-react';
+import { Menu, X, LayoutGrid, BookOpen } from 'lucide-react';
 import { SITE_NAME } from '@/lib/site';
 
 export function MobileNav() {
@@ -54,6 +54,14 @@ export function MobileNav() {
               >
                 <LayoutGrid className="h-4 w-4" />
                 {t('common.allTools', 'All Tools')}
+              </Link>
+              <Link
+                href="/blog"
+                onClick={() => setOpen(false)}
+                className="mb-4 flex items-center gap-2 rounded-lg bg-brand/[0.06] px-4 py-3 text-sm font-medium text-brand"
+              >
+                <BookOpen className="h-4 w-4" />
+                {t('common.blog', 'Blog')}
               </Link>
               <p className="mb-2 px-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
                 {t('common.discover', 'Discover')}

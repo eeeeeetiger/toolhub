@@ -13,4 +13,16 @@ export const config: ToolConfig = {
   isClientOnly: true,
   features: ['Text or URL', 'Custom colors', 'PNG & SVG download', 'Adjustable error correction'],
   relatedTools: ['password-generator', 'unit-converter'],
+
+  howTo: [
+    'Open QR Code Generator in your browser.',
+    'Add your input or file.',
+    'Get the result instantly — processed locally, nothing is uploaded.',
+  ],
+  faqs: [
+    { q: 'Is QR Code Generator free?', a: 'Yes, Offline ToolHub tools are free and private.' },
+    { q: 'Is my data uploaded?', a: 'No. Processing happens locally in your browser.' },
+    { q: 'Do I need to sign up?', a: 'No account is needed.' },
+    { q: 'Does it work offline?', a: 'Once loaded, QR Code Generator runs entirely on your device.' },
+  ],
 };

@@ -13,4 +13,16 @@ export const config: ToolConfig = {
   isClientOnly: true,
   features: ['Decode header & payload', 'Pretty JSON', 'No signature check', 'Private & instant'],
   relatedTools: ['base64', 'json-formatter'],
+
+  howTo: [
+    'Open JWT Decoder in your browser — no install, no signup.',
+    'Paste your input (code, query, or value) into the box.',
+    'See the formatted, decoded, or generated result instantly, computed locally on your device.',
+  ],
+  faqs: [
+    { q: 'Is JWT Decoder free?', a: 'Yes, JWT Decoder is 100% free and runs entirely in your browser.' },
+    { q: 'Is my data sent anywhere?', a: 'No. Everything is processed locally on your device; nothing is uploaded.' },
+    { q: 'Do I need to install anything?', a: 'No. JWT Decoder runs in any modern browser, no installation or signup required.' },
+    { q: 'Is it safe for private code?', a: 'Yes. Your input stays in your browser and is never stored or transmitted.' },
+  ],
 };

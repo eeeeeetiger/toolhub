@@ -13,4 +13,16 @@ export const config: ToolConfig = {
   isClientOnly: true,
   features: ['Allow / disallow bots', 'Path rules', 'Sitemap reference', 'Copy & download'],
   relatedTools: ['sitemap-generator', 'meta-tag-generator'],
+
+  howTo: [
+    'Open Robots.txt Generator in your browser.',
+    'Enter the URL or content you want to analyze.',
+    'Review the result — processed locally, nothing is sent to a server.',
+  ],
+  faqs: [
+    { q: 'Is Robots.txt Generator free?', a: 'Yes, and it runs entirely in your browser.' },
+    { q: 'Are my inputs uploaded?', a: 'No. Your inputs are processed locally and never leave your device.' },
+    { q: 'Do I need an account?', a: 'No account or signup is required.' },
+    { q: 'Does it work for any website?', a: 'Yes. Just enter the URL or content you want to analyze.' },
+  ],
 };

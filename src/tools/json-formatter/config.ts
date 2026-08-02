@@ -13,4 +13,16 @@ export const config: ToolConfig = {
   isClientOnly: true,
   features: ['Format & beautify', 'Validate with errors', 'Minify', 'Copy result'],
   relatedTools: ['base64', 'jwt-decoder'],
+
+  howTo: [
+    'Open JSON Formatter in your browser — no install, no signup.',
+    'Paste your input (code, query, or value) into the box.',
+    'See the formatted, decoded, or generated result instantly, computed locally on your device.',
+  ],
+  faqs: [
+    { q: 'Is JSON Formatter free?', a: 'Yes, JSON Formatter is 100% free and runs entirely in your browser.' },
+    { q: 'Is my data sent anywhere?', a: 'No. Everything is processed locally on your device; nothing is uploaded.' },
+    { q: 'Do I need to install anything?', a: 'No. JSON Formatter runs in any modern browser, no installation or signup required.' },
+    { q: 'Is it safe for private code?', a: 'Yes. Your input stays in your browser and is never stored or transmitted.' },
+  ],
 };

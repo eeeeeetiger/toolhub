@@ -13,4 +13,11 @@ export const config: ToolConfig = {
   relatedTools: ['pdf-watermark', 'pdf-stamp'],
   howTo: ['Draw or enter your content in the tool.', 'Everything stays in your browser.', 'Download the exported file.'],
   addedAt: '2026-07-21',
+
+  faqs: [
+    { q: 'Is Signature Maker free?', a: 'Yes, all document tools are free to use.' },
+    { q: 'Are my documents uploaded?', a: 'No. Documents are processed locally in your browser.' },
+    { q: 'What formats are supported?', a: 'Depends on the tool — common office, CSV, JSON and XML formats.' },
+    { q: 'Do I need an account?', a: 'No signup required.' },
+  ],
 };

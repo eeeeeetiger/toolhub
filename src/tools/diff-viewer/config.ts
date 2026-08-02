@@ -13,4 +13,16 @@ export const config: ToolConfig = {
   isClientOnly: true,
   features: ['Line diff', 'Add/remove highlight', 'Change count', 'Side by side'],
   relatedTools: ['text-cleaner', 'word-counter'],
+
+  howTo: [
+    'Open Text Diff Viewer in your browser.',
+    'Paste or type your text into the box.',
+    'Get the result instantly — your text stays on your device.',
+  ],
+  faqs: [
+    { q: 'Is Text Diff Viewer free?', a: 'Yes, it is free and private.' },
+    { q: 'Is my text uploaded?', a: 'No. Your text stays on your device and is processed locally.' },
+    { q: 'Do I need to sign up?', a: 'No account is needed.' },
+    { q: 'Does it work with large text?', a: 'Yes. Processing happens in your browser, so your text never leaves your computer.' },
+  ],
 };

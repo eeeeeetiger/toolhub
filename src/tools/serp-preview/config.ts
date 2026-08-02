@@ -13,4 +13,16 @@ export const config: ToolConfig = {
   isClientOnly: true,
   features: ['Desktop & mobile preview', 'Pixel-width truncation', 'Length warnings', 'Live snippet render'],
   relatedTools: ['meta-tag-generator', 'schema-generator'],
+
+  howTo: [
+    'Open Google SERP Preview in your browser.',
+    'Enter the URL or content you want to analyze.',
+    'Review the result — processed locally, nothing is sent to a server.',
+  ],
+  faqs: [
+    { q: 'Is Google SERP Preview free?', a: 'Yes, and it runs entirely in your browser.' },
+    { q: 'Are my inputs uploaded?', a: 'No. Your inputs are processed locally and never leave your device.' },
+    { q: 'Do I need an account?', a: 'No account or signup is required.' },
+    { q: 'Does it work for any website?', a: 'Yes. Just enter the URL or content you want to analyze.' },
+  ],
 };

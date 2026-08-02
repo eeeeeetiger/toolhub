@@ -16,4 +16,17 @@ export const config: ToolConfig = {
     'Lossless mute',
     'Local only',
   ],
+
+  howTo: [
+    'Open Mute or Extract Audio in your browser.',
+    'Add your video file.',
+    'Choose the options you need, then process it locally with ffmpeg.wasm.',
+    'Download the result — your video never leaves your device.',
+  ],
+  faqs: [
+    { q: 'Is Mute or Extract Audio free?', a: 'Yes, it is free and runs entirely in your browser.' },
+    { q: 'Are my videos uploaded?', a: 'No. Videos are processed locally with ffmpeg.wasm for privacy.' },
+    { q: 'What video formats are supported?', a: 'MP4, MOV, WebM, AVI, MKV and more depending on the tool.' },
+    { q: 'Do I need to install anything?', a: 'No. It works in any modern browser.' },
+  ],
 };

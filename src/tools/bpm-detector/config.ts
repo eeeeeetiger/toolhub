@@ -12,4 +12,17 @@ export const config: ToolConfig = {
   isClientOnly: true,
   features: ['Estimate BPM', 'No upload', 'Instant'],
   relatedTools: ['audio-speed', 'reverse-audio', 'audio-converter'],
+
+  howTo: [
+    'Open BPM Detector in your browser.',
+    'Add your audio file.',
+    'Adjust options, then process it locally with Web Audio / ffmpeg.wasm.',
+    'Download the result — nothing is uploaded.',
+  ],
+  faqs: [
+    { q: 'Is BPM Detector free?', a: 'Yes, all audio tools on Offline ToolHub are free.' },
+    { q: 'Are my audio files uploaded?', a: 'No. Audio is processed locally in your browser with Web Audio and ffmpeg.wasm.' },
+    { q: 'What audio formats are supported?', a: 'MP3, WAV, M4A, OGG and FLAC, depending on the tool.' },
+    { q: 'Do I need an account?', a: 'No signup required.' },
+  ],
 };

@@ -11,4 +11,16 @@ export const config: ToolConfig = {
   isClientOnly: true,
   features: ['Human-readable', 'Next runs', 'Local'],
   relatedTools: ['chmod-calculator', 'sql-formatter', 'jwt-generator'],
+
+  howTo: [
+    'Open Cron Parser in your browser — no install, no signup.',
+    'Paste your input (code, query, or value) into the box.',
+    'See the formatted, decoded, or generated result instantly, computed locally on your device.',
+  ],
+  faqs: [
+    { q: 'Is Cron Parser free?', a: 'Yes, Cron Parser is 100% free and runs entirely in your browser.' },
+    { q: 'Is my data sent anywhere?', a: 'No. Everything is processed locally on your device; nothing is uploaded.' },
+    { q: 'Do I need to install anything?', a: 'No. Cron Parser runs in any modern browser, no installation or signup required.' },
+    { q: 'Is it safe for private code?', a: 'Yes. Your input stays in your browser and is never stored or transmitted.' },
+  ],
 };

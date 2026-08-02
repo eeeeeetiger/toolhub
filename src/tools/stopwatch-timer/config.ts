@@ -13,4 +13,16 @@ export const config: ToolConfig = {
   isClientOnly: true,
   features: ['Stopwatch with laps', 'Countdown timer', 'Sound alert', 'Precise timing'],
   relatedTools: ['calculator', 'timestamp-converter'],
+
+  howTo: [
+    'Open Stopwatch & Timer in your browser.',
+    'Add your input or file.',
+    'Get the result instantly — processed locally, nothing is uploaded.',
+  ],
+  faqs: [
+    { q: 'Is Stopwatch & Timer free?', a: 'Yes, Offline ToolHub tools are free and private.' },
+    { q: 'Is my data uploaded?', a: 'No. Processing happens locally in your browser.' },
+    { q: 'Do I need to sign up?', a: 'No account is needed.' },
+    { q: 'Does it work offline?', a: 'Once loaded, Stopwatch & Timer runs entirely on your device.' },
+  ],
 };

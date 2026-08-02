@@ -22,4 +22,17 @@ export const config: ToolConfig = {
   isClientOnly: true,
   features: ['2x / 4x upscale', 'Sharpen', 'Noise reduction', 'Contrast boost', 'Before/After', '100% private'],
   relatedTools: ['image-resize-crop', 'image-compressor', 'image-converter'],
+
+  howTo: [
+    'Open Image Upscaler & Enhancer in your browser — no install, no signup.',
+    'Add the image you want to work with (drag & drop or pick a file).',
+    'Adjust any options, then let it run locally on your device.',
+    'Download the result instantly. Your image never leaves your computer.',
+  ],
+  faqs: [
+    { q: 'Is Image Upscaler & Enhancer free?', a: 'Yes, Image Upscaler & Enhancer is 100% free and runs entirely in your browser.' },
+    { q: 'Are my images uploaded to a server?', a: 'No. Images are processed locally in your browser for full privacy — they never leave your device.' },
+    { q: 'What formats are supported?', a: 'Common formats such as JPG, PNG, WebP and more, depending on the tool.' },
+    { q: 'Do I need to install anything?', a: 'No. Image Upscaler & Enhancer works in any modern browser, no installation needed.' },
+  ],
 };

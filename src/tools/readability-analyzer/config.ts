@@ -13,4 +13,16 @@ export const config: ToolConfig = {
   isClientOnly: true,
   features: ['Flesch score', 'Grade level', 'Sentence stats', 'Difficulty band'],
   relatedTools: ['word-counter', 'reading-time', 'text-cleaner'],
+
+  howTo: [
+    'Open Readability Analyzer in your browser.',
+    'Paste or type your text into the box.',
+    'Get the result instantly — your text stays on your device.',
+  ],
+  faqs: [
+    { q: 'Is Readability Analyzer free?', a: 'Yes, it is free and private.' },
+    { q: 'Is my text uploaded?', a: 'No. Your text stays on your device and is processed locally.' },
+    { q: 'Do I need to sign up?', a: 'No account is needed.' },
+    { q: 'Does it work with large text?', a: 'Yes. Processing happens in your browser, so your text never leaves your computer.' },
+  ],
 };
